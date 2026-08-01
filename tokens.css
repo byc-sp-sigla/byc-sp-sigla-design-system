@@ -1,0 +1,101 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SIGLA design tokens — the single source of truth for all four portals.
+
+   Ported verbatim from the `:root` block of SIGLA_App_Prototype_v2.html. The
+   prototype is the spec, not a mood board: these hex values are the contract, and a
+   colour that is not in this list does not belong in a screen.
+
+   ── HOW TO IMPORT ──
+   Expo / NativeWind (citizen, merchant), from the app's global.css, AFTER the
+   Tailwind imports:
+
+       @import 'byc-sp-sigla-design-system/tokens.css';
+
+   Vite / Tailwind v4 (admin, COA), from the app's index.css:
+
+       @import 'tailwindcss';
+       @import 'byc-sp-sigla-design-system/tokens.css';
+
+   ── DO NOT COPY THIS FILE ──
+   Four apps render one design. A second copy of `--color-sigla-ink` is a second
+   place for it to drift, and the copy that drifts is the one nobody is looking at.
+   See docs/adr/0001-tokens-shared-primitives-split.md.
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Colour ─────────────────────────────────────────────────────────────────
+     Prototype variable → token here (usage: bg-sigla-card, text-sigla-ink, …):
+       --content-bg  → canvas       page behind the phone / app background
+       --card        → card         cards, and the app body surface
+       --field-bg    → field        input interiors, one step brighter than card
+       --bg          → shell        near-black chrome; the ID card and QR panel
+       --ink         → ink          all primary text, and the 2px rules
+       --muted       → muted        secondary text, labels, placeholder
+       --line        → line         hairline dividers inside a card
+       --line-strong → line-strong  card borders, input borders, disabled text
+       --green       → green        primary action, active tab, progress
+       --green-pale  → green-pale   text on shell-coloured surfaces
+       --amber       → amber        warning banners
+       --red         → red          destructive actions, error text */
+  --color-sigla-canvas: #e7e1d4;
+  --color-sigla-card: #faf6ee;
+  --color-sigla-field: #fffdf8;
+  --color-sigla-shell: #141b16;
+  --color-sigla-ink: #1a2e1f;
+  --color-sigla-muted: #6b7265;
+  --color-sigla-line: #eae3d2;
+  --color-sigla-line-strong: #b9af98;
+  --color-sigla-green: #2e6b3e;
+  --color-sigla-green-pale: #cfe3d3;
+  --color-sigla-amber: #b46115;
+  --color-sigla-red: #c03a2b;
+
+  /* The prototype's only radii: 7px on controls, 9px on cards. */
+  --radius-sigla: 7px;
+  --radius-sigla-card: 9px;
+
+  /* ── Type: families ─────────────────────────────────────────────────────────
+     Hanken Grotesk at 400 / 700 / 800.
+
+     These strings are the exact keys each app passes to `useFonts` (Expo) or
+     declares in `@font-face` (Vite). A font is resolved BY THIS NAME, so a rename
+     on either side silently falls back to the system face — which reads as "the
+     design is slightly off" rather than as a broken import.
+
+     Three named families rather than `font-weight`, because React Native does not
+     synthesise a weight: asking for 800 on a family registered at 400 renders 400
+     on Android. Each weight is its own loaded face.
+
+     ⚠️ THESE ARE THEME TOKENS, NOT HAND-WRITTEN UTILITIES, AND THAT MATTERS.
+     Tailwind generates `font-sigla` / `font-sigla-bold` / `font-sigla-black` from
+     the `--font-*` namespace and emits them alongside its own utilities. Writing
+     the same classes by hand inside `@layer utilities` fails SILENTLY in the Expo
+     apps: `tailwindcss/utilities.css` is imported unlayered there, and
+     react-native-web's base class for <Text> is unlayered too. Unlayered CSS beats
+     layered CSS, so a hand-rolled `.font-sigla-black` loses to RNW's default font
+     stack — the class lands in the DOM, the rule sits in the bundle, and nothing
+     changes on screen. */
+  --font-sigla: HankenGrotesk_400Regular;
+  --font-sigla-bold: HankenGrotesk_700Bold;
+  --font-sigla-black: HankenGrotesk_800ExtraBold;
+
+  /* ── Type: scale ────────────────────────────────────────────────────────────
+     The prototype's own half-pixel sizes. Each carries an explicit `--line-height`
+     because React Native reads a unitless `lineHeight` as PIXELS — a bare ratio
+     collapses text into a thin flat band on Android. Declaring the pair together
+     means the two can never drift apart. */
+  --text-sigla-badge: 9.5px;                 /* badges, tab labels */
+  --text-sigla-badge--line-height: 13px;
+  --text-sigla-label: 10.5px;                /* uppercase field labels, section titles */
+  --text-sigla-label--line-height: 14px;
+  --text-sigla-hint: 11px;                   /* helper text under a field */
+  --text-sigla-hint--line-height: 16.5px;
+  --text-sigla-meta: 12.5px;                 /* banner copy, secondary rows */
+  --text-sigla-meta--line-height: 18px;
+  --text-sigla-body: 13.5px;                 /* inputs, buttons, list titles */
+  --text-sigla-body--line-height: 20px;
+  --text-sigla-title: 15px;                  /* screen headings inside the body */
+  --text-sigla-title--line-height: 20px;
+  --text-sigla-greet: 20px;                  /* the "Kumusta!" greeting */
+  --text-sigla-greet--line-height: 23px;
+}
