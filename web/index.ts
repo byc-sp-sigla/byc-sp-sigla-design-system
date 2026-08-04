@@ -17,5 +17,6 @@
 export { PortalShell } from './PortalShell';
 export { Button } from './Button';
 export { Field } from './Field';
+export { Select, type SelectOption } from './Select';
 export { Badge, Banner, Card, Hint, Rule, SectionTitle } from './Surface';
 export { cn } from './cn';
