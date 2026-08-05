@@ -73,11 +73,13 @@ export function AppShell({
         citizen and merchant chrome cannot drift apart by someone padding only the screen they had
         open.
 
-        Full-bleed on web on purpose — a wide browser window centres the body below, but the header
-        reads as a bar the way it does in the admin/COA portals, not as a phone header clipped to the
-        body's own width.
+        The RULE is full-bleed, so the header reads as a bar the way it does in the admin/COA portals.
+        Its CONTENT is capped to the body's width and centred with it — left-aligned instead, the app
+        label sat at the far left of a wide window while the body sat in the middle, which read as two
+        unrelated layouts. On a phone the cap exceeds the screen, so this is identical to full width.
       */}
-      <View className="w-full flex-row items-center gap-2 border-b-2 border-sigla-ink bg-sigla-card pb-2.5 pl-4.5 pr-2.5 pt-3">
+      <View className="w-full border-b-2 border-sigla-ink bg-sigla-card">
+      <View className="mx-auto w-full max-w-120 flex-row items-center gap-2 pb-2.5 pl-4.5 pr-2.5 pt-3">
         {/* Reserves the chevron's width even when there is nothing to go back to, so the title does
             not shift horizontally between screens. */}
         <View className="w-8">
@@ -114,6 +116,7 @@ export function AppShell({
         </View>
 
         {headerRight}
+      </View>
       </View>
 
       {/* The functional area — scrollable body and footer — stays phone-width and centred, even
