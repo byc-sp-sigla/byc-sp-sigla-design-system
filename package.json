@@ -20,13 +20,21 @@
   "peerDependencies": {
     "react": ">=19",
     "react-native": ">=0.81",
-    "react-native-safe-area-context": ">=5"
+    "react-native-safe-area-context": ">=5",
+    "react-native-qrcode-svg": ">=6",
+    "react-native-svg": ">=15"
   },
   "peerDependenciesMeta": {
     "react-native": {
       "optional": true
     },
     "react-native-safe-area-context": {
+      "optional": true
+    },
+    "react-native-qrcode-svg": {
+      "optional": true
+    },
+    "react-native-svg": {
       "optional": true
     }
   }
