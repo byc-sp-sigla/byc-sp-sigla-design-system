@@ -16,6 +16,8 @@ import { cn } from './cn';
  *
  * `maxWidth` defaults to a readable column rather than full-bleed. A login form stretched across a
  * wide monitor is the other classic way an admin portal stops looking like the product.
+ *
+ * See `TabbedPortalShell` for the variant with a per-role bottom tab strip.
  */
 
 interface PortalShellProps {
