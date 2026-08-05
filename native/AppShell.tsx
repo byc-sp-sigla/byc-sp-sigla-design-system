@@ -28,6 +28,8 @@ interface AppShellProps {
   title: string;
   children: React.ReactNode;
   onBack?: () => void;
+  /** The prototype's house icon next to the app label — jumps to the app-launcher/home. */
+  onHome?: () => void;
   /** The prototype's `Lock` pill slot. Left empty on the auth screens. */
   headerRight?: React.ReactNode;
   /** Turn off when the screen manages its own scrolling. */
@@ -49,6 +51,7 @@ export function AppShell({
   title,
   children,
   onBack,
+  onHome,
   headerRight,
   scroll = true,
   footer,
@@ -69,8 +72,14 @@ export function AppShell({
         Applied here rather than in either app: this is the one header both Expo apps render, so the
         citizen and merchant chrome cannot drift apart by someone padding only the screen they had
         open.
+
+        The RULE is full-bleed, so the header reads as a bar the way it does in the admin/COA portals.
+        Its CONTENT is capped to the body's width and centred with it — left-aligned instead, the app
+        label sat at the far left of a wide window while the body sat in the middle, which read as two
+        unrelated layouts. On a phone the cap exceeds the screen, so this is identical to full width.
       */}
-      <View className="flex-row items-center gap-2 border-b-2 border-sigla-ink pb-2.5 pl-4.5 pr-2.5 pt-3">
+      <View className="w-full border-b-2 border-sigla-ink bg-sigla-card">
+      <View className="mx-auto w-full max-w-120 flex-row items-center gap-2 pb-2.5 pl-4.5 pr-2.5 pt-3">
         {/* Reserves the chevron's width even when there is nothing to go back to, so the title does
             not shift horizontally between screens. */}
         <View className="w-8">
@@ -86,6 +95,17 @@ export function AppShell({
           )}
         </View>
 
+        {onHome !== undefined && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Go to home"
+            onPress={onHome}
+            className="items-center justify-center rounded px-1.5 py-1 active:bg-sigla-line"
+          >
+            <Text className="text-base leading-5 text-sigla-ink">⌂</Text>
+          </Pressable>
+        )}
+
         <View className="min-w-0 flex-1">
           <Text className="font-sigla-bold text-sigla-badge uppercase tracking-[1.4px] text-sigla-muted">
             {app}
@@ -97,20 +117,25 @@ export function AppShell({
 
         {headerRight}
       </View>
+      </View>
 
-      {scroll ? (
-        <ScrollView
-          className="flex-1 bg-sigla-card"
-          keyboardShouldPersistTaps="handled"
-          contentInsetAdjustmentBehavior="automatic"
-        >
-          {body}
-        </ScrollView>
-      ) : (
-        <View className={cn('flex-1 bg-sigla-card')}>{body}</View>
-      )}
+      {/* The functional area — scrollable body and footer — stays phone-width and centred, even
+          when the header above it spans the full browser window. */}
+      <View className="w-full max-w-120 flex-1 self-center bg-sigla-card">
+        {scroll ? (
+          <ScrollView
+            className="flex-1 bg-sigla-card"
+            keyboardShouldPersistTaps="handled"
+            contentInsetAdjustmentBehavior="automatic"
+          >
+            {body}
+          </ScrollView>
+        ) : (
+          <View className={cn('flex-1 bg-sigla-card')}>{body}</View>
+        )}
 
-      {footer}
+        {footer}
+      </View>
     </SafeAreaView>
   );
 }

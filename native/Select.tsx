@@ -120,7 +120,7 @@ export function Select({
                       onChange(option.value);
                       setOpen(false);
                     }}
-                    className="flex-row items-center justify-between border-b border-sigla-line px-4 py-3 active:bg-sigla-line"
+                    className="flex-row items-center justify-between border-b border-sigla-line px-4 py-3 hover:bg-sigla-green-pale active:bg-sigla-green-pale"
                   >
                     <Text
                       className={cn(
