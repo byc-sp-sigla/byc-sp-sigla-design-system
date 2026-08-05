@@ -80,20 +80,20 @@ export function AppShell({
       */}
       <View className="w-full border-b-2 border-sigla-ink bg-sigla-card">
       <View className="mx-auto w-full max-w-120 flex-row items-center gap-2 pb-2.5 pl-4.5 pr-2.5 pt-3">
-        {/* Reserves the chevron's width even when there is nothing to go back to, so the title does
-            not shift horizontally between screens. */}
-        <View className="w-8">
-          {onBack !== undefined && (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Go back"
-              onPress={onBack}
-              className="items-center justify-center rounded px-2 py-1 active:bg-sigla-line"
-            >
-              <Text className="font-sigla-bold text-xl leading-5 text-sigla-ink">‹</Text>
-            </Pressable>
-          )}
-        </View>
+        {/* Rendered only when there is somewhere to go back to. This used to reserve its width
+            unconditionally so the title never shifted between screens, but that indented the title
+            past the body's own padding on every screen without a back button, which read as a stray
+            margin. Aligning with the body wins. */}
+        {onBack !== undefined && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Go back"
+            onPress={onBack}
+            className="-ml-1.5 items-center justify-center rounded px-1.5 py-1 active:bg-sigla-line"
+          >
+            <Text className="font-sigla-bold text-xl leading-5 text-sigla-ink">‹</Text>
+          </Pressable>
+        )}
 
         {onHome !== undefined && (
           <Pressable
