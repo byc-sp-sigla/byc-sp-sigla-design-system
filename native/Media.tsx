@@ -1,4 +1,5 @@
 import { Pressable, Text, View } from 'react-native';
+import QRCodeSvg from 'react-native-qrcode-svg';
 import { cn } from './cn';
 
 /**
@@ -54,14 +55,49 @@ export function CameraBox({
 // ---------------------------------------------------------------------------
 
 /**
- * `.qr-box` — a placeholder square where a QR will render.
+ * `.qr-box` — renders a citizen or merchant's signed QR payload.
  *
- * Deliberately NOT a QR generator. The real code is a signed payload from
- * `POST /citizen/id/qr` that re-signs every two minutes, and a component that could generate its own
- * would invite a screen to render a locally-built code that no server signed — which would scan and
- * then fail verification at the counter.
+ * `react-native-qrcode-svg` (+ its `react-native-svg` peer) were added specifically for this — an
+ * off-`CLAUDE.md`-§1-menu dependency whose justification is recorded in this change's PR
+ * description rather than a separate kickoff-brief doc, since no such file exists in this repo yet.
+ *
+ * Still NOT a generator of its OWN data: `value` must be a signed payload the caller already holds
+ * (e.g. from `POST /citizen/id/qr`) — this component never invents one. Omitting `value` renders
+ * the original placeholder square, for a caller with no signed payload yet (a loading state, or a
+ * screen that hasn't reached this feature).
  */
-export function QrBox({ size = 56, dark = false }: { size?: number; dark?: boolean }) {
+export function QrBox({
+  value,
+  size = 56,
+  dark = false,
+}: {
+  /** The signed payload to encode. Leave undefined for the placeholder square. */
+  value?: string;
+  size?: number;
+  dark?: boolean;
+}) {
+  /** `dark` means the box sits ON a dark card, so the box itself is light — never the inverse. */
+  const boxColor = dark ? '#faf6ee' : '#141b16';
+  const moduleColor = dark ? '#141b16' : '#faf6ee';
+
+  if (value !== undefined) {
+    return (
+      <View
+        accessibilityLabel="QR code"
+        className="items-center justify-center rounded"
+        style={{ width: size, height: size, backgroundColor: boxColor }}
+      >
+        {/* ~10% quiet zone on each side — real scanners rely on that margin, unlike the demo square. */}
+        <QRCodeSvg
+          value={value}
+          size={size * 0.8}
+          color={moduleColor}
+          backgroundColor={boxColor}
+        />
+      </View>
+    );
+  }
+
   return (
     <View
       accessibilityLabel="QR code"
