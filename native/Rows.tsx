@@ -70,7 +70,7 @@ export function ClickRow({
       accessibilityRole="button"
       onPress={onPress}
       className={cn(
-        'flex-row items-start justify-between gap-2 py-2.5 active:bg-sigla-line',
+        'flex-row items-start justify-between gap-2 py-2.5 hover:bg-sigla-green-pale active:bg-sigla-green-pale',
         !last && 'border-b border-sigla-line',
       )}
     >
@@ -108,7 +108,7 @@ export function MenuRow({
       accessibilityRole="button"
       onPress={onPress}
       className={cn(
-        'flex-row items-center justify-between px-0.5 py-3 active:bg-sigla-line',
+        'flex-row items-center justify-between px-0.5 py-3 hover:bg-sigla-green-pale active:bg-sigla-green-pale',
         !last && 'border-b border-sigla-line',
       )}
     >

@@ -152,13 +152,25 @@ export function Rule({ className }: { className?: string }) {
  * lives in the screen's state and reaches the API from there. A component that both showed and
  * stored the PIN would put it in one more place than necessary.
  */
-export function PinDots({ filled, length = 4 }: { filled: number; length?: number }) {
+export function PinDots({
+  filled,
+  length = 4,
+  focused = false,
+}: {
+  filled: number;
+  length?: number;
+  /** Highlights the next box to fill, so it reads as a cursor rather than four identical boxes. */
+  focused?: boolean;
+}) {
   return (
     <View className="my-1.5 flex-row gap-2">
       {Array.from({ length }, (_, i) => (
         <View
           key={i}
-          className="h-[42px] w-9 items-center justify-center rounded-sigla border border-sigla-line-strong bg-sigla-field"
+          className={cn(
+            'h-10.5 w-9 items-center justify-center rounded-sigla border bg-sigla-field',
+            focused && i === filled ? 'border-2 border-sigla-green' : 'border-sigla-line-strong',
+          )}
         >
           <Text className="font-sigla-bold text-sigla-body text-sigla-ink">
             {i < filled ? '•' : ''}
