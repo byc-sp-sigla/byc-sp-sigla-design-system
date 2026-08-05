@@ -16,6 +16,8 @@ import { cn } from './cn';
  *
  * `maxWidth` defaults to a readable column rather than full-bleed. A login form stretched across a
  * wide monitor is the other classic way an admin portal stops looking like the product.
+ *
+ * See `TabbedPortalShell` for the variant with a per-role bottom tab strip.
  */
 
 interface PortalShellProps {
@@ -25,13 +27,6 @@ interface PortalShellProps {
   children: ReactNode;
   /** Signed-in identity, role badge, sign-out — whatever the app puts on the right of the topbar. */
   headerRight?: ReactNode;
-  /**
-   * The per-role `TabStrip`, if this screen has one. Rendered between the topline and `<main>` —
-   * one fixed slot rather than each caller wrapping `<PortalShell>` in its own nav markup, so the
-   * spacing and border stay defined in one place (same reasoning as native `AppShell`'s `footer`
-   * slot).
-   */
-  nav?: ReactNode;
   /** Tailwind max-width class for the content column. */
   maxWidth?: string;
 }
@@ -41,7 +36,6 @@ export function PortalShell({
   title,
   children,
   headerRight,
-  nav,
   maxWidth = 'max-w-xl',
 }: PortalShellProps) {
   return (
@@ -57,8 +51,6 @@ export function PortalShell({
 
       {/* The prototype's `.topline` — a 2px green rule directly under the topbar. */}
       <div className="h-0.5 bg-sigla-green" />
-
-      {nav}
 
       <main className={cn('mx-auto px-5 py-8', maxWidth)}>
         <h1 className="mb-4 font-sigla-black text-sigla-greet tracking-[-0.6px] text-sigla-ink">
