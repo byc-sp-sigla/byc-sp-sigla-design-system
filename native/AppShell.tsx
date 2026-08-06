@@ -1,6 +1,5 @@
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { cn } from './cn';
 
 /**
  * The prototype's phone chrome, minus the phone.
@@ -46,6 +45,46 @@ interface AppShellProps {
   footer?: React.ReactNode;
 }
 
+/**
+ * ⚠️ LAYOUT-CRITICAL VALUES ARE PLAIN RN STYLES, NOT CLASSES. Do not "tidy" these back to
+ * `className`.
+ *
+ * Tailwind v4 compiles every spacing utility to `calc(var(--spacing) * N)`, and the
+ * react-native-css runtime under `nativewind@5.0.0-preview` does not reliably resolve that on
+ * Android — the value arrives as `NaN`. For a colour or a font weight that degrades quietly; for
+ * `maxWidth` on the content column it collapses the layout and the screen renders BLANK under a
+ * correct-looking header. That is exactly what shipped to the first device this was ever opened on.
+ *
+ * So anything that decides whether content is visible — width, maxWidth, flex, padding, gap — is a
+ * literal number here. Colour and typography stay as classes, where a miss is cosmetic.
+ *
+ * `global.css` in both apps also overrides `.max-w-120`, `leading-*` and `text-*` for the same
+ * reason. Belt and braces: this file no longer depends on those landing.
+ *
+ * 120 × 0.25rem = 30rem = 480. 4.5 × 4 = 18.
+ */
+const COLUMN = { width: '100%', maxWidth: 480, flex: 1, alignSelf: 'center' } as const;
+
+const HEADER_ROW = {
+  width: '100%',
+  maxWidth: 480,
+  marginHorizontal: 'auto',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 8,
+  paddingTop: 12,
+  paddingBottom: 10,
+  paddingLeft: 18,
+  paddingRight: 10,
+} as const;
+
+const BODY_PAD = { paddingHorizontal: 18, paddingTop: 16, paddingBottom: 24 } as const;
+
+/** `flex-1` and `w-full` are classes too, and the whole layout chain has to survive without them. */
+const FILL = { flex: 1 } as const;
+const HEADER_BAR = { width: '100%' } as const;
+const TITLE_COL = { flex: 1, minWidth: 0 } as const;
+
 export function AppShell({
   app = 'SIGLA',
   title,
@@ -56,10 +95,10 @@ export function AppShell({
   scroll = true,
   footer,
 }: AppShellProps) {
-  const body = <View className="px-4.5 pb-6 pt-4">{children}</View>;
+  const body = <View style={BODY_PAD}>{children}</View>;
 
   return (
-    <SafeAreaView className="flex-1 bg-sigla-card" edges={['top', 'bottom']}>
+    <SafeAreaView className="bg-sigla-card" style={FILL} edges={['top', 'bottom']}>
       {/*
         `pt-3`, not the `pt-0.5` this had.
 
@@ -78,8 +117,8 @@ export function AppShell({
         label sat at the far left of a wide window while the body sat in the middle, which read as two
         unrelated layouts. On a phone the cap exceeds the screen, so this is identical to full width.
       */}
-      <View className="w-full border-b-2 border-sigla-ink bg-sigla-card">
-      <View className="mx-auto w-full max-w-120 flex-row items-center gap-2 pb-2.5 pl-4.5 pr-2.5 pt-3">
+      <View className="border-b-2 border-sigla-ink bg-sigla-card" style={HEADER_BAR}>
+      <View style={HEADER_ROW}>
         {/* Rendered only when there is somewhere to go back to. This used to reserve its width
             unconditionally so the title never shifted between screens, but that indented the title
             past the body's own padding on every screen without a back button, which read as a stray
@@ -106,7 +145,7 @@ export function AppShell({
           </Pressable>
         )}
 
-        <View className="min-w-0 flex-1">
+        <View style={TITLE_COL}>
           <Text className="font-sigla-bold text-sigla-badge uppercase tracking-[1.4px] text-sigla-muted">
             {app}
           </Text>
@@ -121,17 +160,18 @@ export function AppShell({
 
       {/* The functional area — scrollable body and footer — stays phone-width and centred, even
           when the header above it spans the full browser window. */}
-      <View className="w-full max-w-120 flex-1 self-center bg-sigla-card">
+      <View className="bg-sigla-card" style={COLUMN}>
         {scroll ? (
           <ScrollView
-            className="flex-1 bg-sigla-card"
+            className="bg-sigla-card"
+            style={FILL}
             keyboardShouldPersistTaps="handled"
             contentInsetAdjustmentBehavior="automatic"
           >
             {body}
           </ScrollView>
         ) : (
-          <View className={cn('flex-1 bg-sigla-card')}>{body}</View>
+          <View className="bg-sigla-card" style={FILL}>{body}</View>
         )}
 
         {footer}
