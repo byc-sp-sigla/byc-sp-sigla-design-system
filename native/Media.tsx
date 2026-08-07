@@ -1,6 +1,6 @@
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import QRCodeSvg from 'react-native-qrcode-svg';
-import { cn } from './cn';
+import { color, font, radius, sp, type } from './theme';
 
 /**
  * The prototype's placeholder surfaces: `.camera-box`, `.qr-box` / `.qr-card`, `.avatar-ph`, and
@@ -9,7 +9,59 @@ import { cn } from './cn';
  * These are the pieces that stand in for something the device or the server supplies. Each is a real
  * component rather than an inline `View` in a screen, because each has an exact size and border
  * treatment in the prototype and those are easy to approximate slightly differently on each screen.
+ *
+ * Styling is `StyleSheet`, not `className` — see `theme.ts`.
  */
+
+const styles = StyleSheet.create({
+  cameraBox: {
+    marginVertical: sp(2.5),
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.control,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: color.lineStrong,
+    backgroundColor: color.field,
+    paddingHorizontal: sp(3),
+  },
+  cameraBoxCaptured: { borderColor: color.green },
+  cameraLabel: { textAlign: 'center', fontFamily: font.regular, ...type.meta, color: color.muted },
+  cameraLabelCaptured: { color: color.green },
+
+  qrBox: { alignItems: 'center', justifyContent: 'center', borderRadius: radius.small },
+  qrPlaceholderLabel: { fontFamily: font.regular, fontSize: 9, lineHeight: 12 },
+
+  avatar: { backgroundColor: color.lineStrong },
+
+  track: {
+    marginTop: sp(1.5),
+    height: 5,
+    width: '100%',
+    overflow: 'hidden',
+    borderRadius: 3,
+    backgroundColor: color.line,
+  },
+  fill: { height: '100%', backgroundColor: color.green },
+
+  stat: { flex: 1 },
+  statLabel: {
+    fontFamily: font.regular,
+    ...type.badge,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    color: color.muted,
+  },
+  statValue: {
+    marginTop: sp(0.5),
+    fontFamily: font.black,
+    ...type.greet,
+    letterSpacing: -0.4,
+    color: color.ink,
+  },
+  statGrid: { marginBottom: sp(3.5), flexDirection: 'row', gap: sp(3.5) },
+});
 
 // ---------------------------------------------------------------------------
 
@@ -35,17 +87,9 @@ export function CameraBox({
   return (
     <Wrapper
       {...(onPress === undefined ? {} : { onPress, accessibilityRole: 'button' as const })}
-      className={cn(
-        'my-2.5 h-[100px] items-center justify-center rounded-sigla border border-dashed bg-sigla-field px-3',
-        captured ? 'border-sigla-green' : 'border-sigla-line-strong',
-      )}
+      style={[styles.cameraBox, captured && styles.cameraBoxCaptured]}
     >
-      <Text
-        className={cn(
-          'text-center font-sigla text-sigla-meta',
-          captured ? 'text-sigla-green' : 'text-sigla-muted',
-        )}
-      >
+      <Text style={[styles.cameraLabel, captured && styles.cameraLabelCaptured]}>
         {captured ? 'Photo captured ✓' : label}
       </Text>
     </Wrapper>
@@ -77,23 +121,17 @@ export function QrBox({
   dark?: boolean;
 }) {
   /** `dark` means the box sits ON a dark card, so the box itself is light — never the inverse. */
-  const boxColor = dark ? '#faf6ee' : '#141b16';
-  const moduleColor = dark ? '#141b16' : '#faf6ee';
+  const boxColor = dark ? color.card : color.shell;
+  const moduleColor = dark ? color.shell : color.card;
 
   if (value !== undefined) {
     return (
       <View
         accessibilityLabel="QR code"
-        className="items-center justify-center rounded"
-        style={{ width: size, height: size, backgroundColor: boxColor }}
+        style={[styles.qrBox, { width: size, height: size, backgroundColor: boxColor }]}
       >
         {/* ~10% quiet zone on each side — real scanners rely on that margin, unlike the demo square. */}
-        <QRCodeSvg
-          value={value}
-          size={size * 0.8}
-          color={moduleColor}
-          backgroundColor={boxColor}
-        />
+        <QRCodeSvg value={value} size={size * 0.8} color={moduleColor} backgroundColor={boxColor} />
       </View>
     );
   }
@@ -101,14 +139,9 @@ export function QrBox({
   return (
     <View
       accessibilityLabel="QR code"
-      className={cn('items-center justify-center rounded', dark ? 'bg-sigla-card' : 'bg-sigla-shell')}
-      style={{ width: size, height: size }}
+      style={[styles.qrBox, { width: size, height: size, backgroundColor: boxColor }]}
     >
-      <Text
-        className={cn('font-sigla text-[9px]', dark ? 'text-sigla-shell' : 'text-sigla-card')}
-      >
-        QR
-      </Text>
+      <Text style={[styles.qrPlaceholderLabel, { color: moduleColor }]}>QR</Text>
     </View>
   );
 }
@@ -117,12 +150,7 @@ export function QrBox({
 
 /** `.avatar-ph` / `.avatar-ph-lg` — the grey circle standing in for a citizen's photo. */
 export function AvatarPlaceholder({ size = 52 }: { size?: number }) {
-  return (
-    <View
-      className="bg-sigla-line-strong"
-      style={{ width: size, height: size, borderRadius: size / 2 }}
-    />
-  );
+  return <View style={[styles.avatar, { width: size, height: size, borderRadius: size / 2 }]} />;
 }
 
 // ---------------------------------------------------------------------------
@@ -141,9 +169,9 @@ export function ProgressBar({ value, max }: { value: number; max: number }) {
     <View
       accessibilityRole="progressbar"
       accessibilityValue={{ min: 0, max, now: value }}
-      className="mt-1.5 h-[5px] w-full overflow-hidden rounded-[3px] bg-sigla-line"
+      style={styles.track}
     >
-      <View className="h-full bg-sigla-green" style={{ width: `${pct}%` }} />
+      <View style={[styles.fill, { width: `${pct}%` }]} />
     </View>
   );
 }
@@ -162,13 +190,9 @@ export function Stat({
   children?: React.ReactNode;
 }) {
   return (
-    <View className="flex-1">
-      <Text className="font-sigla text-sigla-badge uppercase tracking-[1px] text-sigla-muted">
-        {label}
-      </Text>
-      <Text className="mt-0.5 font-sigla-black text-sigla-greet tracking-[-0.4px] text-sigla-ink">
-        {value}
-      </Text>
+    <View style={styles.stat}>
+      <Text style={styles.statLabel}>{label}</Text>
+      <Text style={styles.statValue}>{value}</Text>
       {children}
     </View>
   );
@@ -176,5 +200,5 @@ export function Stat({
 
 /** `.stat-grid` — the prototype's two-column stat row. */
 export function StatGrid({ children }: { children: React.ReactNode }) {
-  return <View className="mb-3.5 flex-row gap-3.5">{children}</View>;
+  return <View style={styles.statGrid}>{children}</View>;
 }

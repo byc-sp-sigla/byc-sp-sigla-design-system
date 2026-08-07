@@ -1,5 +1,5 @@
-import { Pressable, Text, View } from 'react-native';
-import { cn } from './cn';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { color, font, sp, type } from './theme';
 
 /**
  * The prototype's `.tabbar` — the bottom navigation on every signed-in screen.
@@ -13,6 +13,9 @@ import { cn } from './cn';
  *
  * Hiding them instead would be the easy call and the wrong one: it makes a pending account look
  * broken rather than waiting, and it means the app's shape changes under the user at approval.
+ *
+ * Styling is `StyleSheet`, not `className` — see `theme.ts`. This bar sits below the scrolling body
+ * on every signed-in screen, so an inflated padding here eats the content area.
  */
 
 export interface TabItem {
@@ -21,6 +24,56 @@ export interface TabItem {
   /** Present but unreachable — dimmed, unpressable, and announced as disabled. */
   locked?: boolean;
 }
+
+const styles = StyleSheet.create({
+  noteWrap: {
+    borderTopWidth: 1,
+    borderStyle: 'dashed',
+    borderTopColor: color.lineStrong,
+    backgroundColor: color.canvas,
+    paddingHorizontal: sp(4),
+    paddingVertical: sp(2),
+  },
+  note: {
+    textAlign: 'center',
+    fontFamily: font.bold,
+    ...type.badge,
+    textTransform: 'uppercase',
+    letterSpacing: 0.6,
+    color: color.muted,
+  },
+  bar: {
+    flexDirection: 'row',
+    borderTopWidth: 2,
+    borderTopColor: color.ink,
+    backgroundColor: color.card,
+  },
+  tab: {
+    flex: 1,
+    alignItems: 'center',
+    paddingHorizontal: sp(0.5),
+    paddingTop: sp(2.5),
+    paddingBottom: sp(2),
+  },
+  /* The prototype marks the active tab with a green bar sitting ON the top rule. */
+  marker: {
+    position: 'absolute',
+    left: '18%',
+    right: '18%',
+    top: -2,
+    height: 2,
+    backgroundColor: color.green,
+  },
+  label: {
+    fontFamily: font.bold,
+    ...type.badge,
+    textTransform: 'uppercase',
+    letterSpacing: 0.3,
+    color: color.lineStrong,
+  },
+  labelActive: { color: color.ink },
+  labelLocked: { opacity: 0.45 },
+});
 
 export function TabBar({
   items,
@@ -37,17 +90,12 @@ export function TabBar({
   return (
     <View>
       {note !== undefined && (
-        <View className="border-t border-dashed border-sigla-line-strong bg-sigla-canvas px-4 py-2">
-          <Text className="text-center font-sigla-bold text-sigla-badge uppercase tracking-[0.6px] text-sigla-muted">
-            {note}
-          </Text>
+        <View style={styles.noteWrap}>
+          <Text style={styles.note}>{note}</Text>
         </View>
       )}
 
-      <View
-        accessibilityRole="tablist"
-        className="flex-row border-t-2 border-sigla-ink bg-sigla-card"
-      >
+      <View accessibilityRole="tablist" style={styles.bar}>
         {items.map((item) => {
           const active = item.key === activeKey;
           const locked = item.locked === true;
@@ -59,19 +107,12 @@ export function TabBar({
               accessibilityState={{ selected: active, disabled: locked }}
               disabled={locked}
               onPress={() => onSelect(item.key)}
-              className="flex-1 items-center px-0.5 pb-2 pt-2.5"
+              style={styles.tab}
             >
-              {/* The prototype marks the active tab with a green bar sitting ON the top rule. */}
-              {active && (
-                <View className="absolute left-[18%] right-[18%] top-[-2px] h-0.5 bg-sigla-green" />
-              )}
+              {active && <View style={styles.marker} />}
 
               <Text
-                className={cn(
-                  'font-sigla-bold text-sigla-badge uppercase tracking-[0.3px]',
-                  active ? 'text-sigla-ink' : 'text-sigla-line-strong',
-                  locked && 'opacity-45',
-                )}
+                style={[styles.label, active && styles.labelActive, locked && styles.labelLocked]}
               >
                 {item.label}
               </Text>

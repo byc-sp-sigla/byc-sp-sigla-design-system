@@ -52,9 +52,29 @@ export function TabbedPortalShell({
   maxWidth = 'max-w-xl',
 }: TabbedPortalShellProps) {
   return (
-    <div className="flex h-screen flex-col bg-sigla-card">
+    /**
+     * `100dvh` where supported, `100vh` otherwise.
+     *
+     * `h-screen` alone is `100vh`, which on a mobile browser is the viewport WITHOUT the URL bar
+     * subtracted — so a bottom-pinned tab bar sits behind the browser's own chrome and the last row
+     * of a list is unreachable. `dvh` tracks the visible height as that bar shows and hides. Kept as
+     * a `supports-` variant rather than a swap so a browser without `dvh` still gets a full-height
+     * shell instead of an unsized one.
+     */
+    <div className="flex h-screen flex-col bg-sigla-card supports-[height:100dvh]:h-dvh">
       <header className="shrink-0 border-b-2 border-sigla-ink">
-        <div className="mx-auto flex max-w-6xl items-center gap-2 pt-0.5 pr-2.5 pb-2.5 pl-[18px]">
+        {/*
+          `flex-wrap`, matching the prototype's own `.topbar{flex-wrap:wrap}` and `PortalShell`'s
+          topbar.
+
+          The pills in `headerRight` (Back, Home, Log out, and the dev role switch) are each
+          `shrink-0 whitespace-nowrap` — correct on their own, since a control that says "Log ou…" is
+          worse than one that wraps. But on a 320px phone their combined width exceeds the row, and
+          with nothing able to shrink the last pill was pushed 28px past the viewport, taking the
+          whole page with it. Wrapping moves the pills onto a second line at that width and changes
+          nothing at any width where they already fit.
+        */}
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 pt-0.5 pr-2.5 pb-2.5 pl-[18px]">
           <div className="min-w-0 flex-1">
             <div className="font-sigla-bold text-[10px] uppercase tracking-[0.14em] text-sigla-muted">
               {portal}

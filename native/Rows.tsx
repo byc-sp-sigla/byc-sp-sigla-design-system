@@ -1,5 +1,6 @@
-import { Pressable, Text, View } from 'react-native';
-import { cn } from './cn';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { color, font, radius, sp, type } from './theme';
+import { useHover } from './useHover';
 
 /**
  * The prototype's row vocabulary: `li()`, `clickRow()`, `menuRow()`, `kv()`, and `checkboxRow()`.
@@ -10,7 +11,69 @@ import { cn } from './cn';
  * "is this tappable?" a prop you have to read rather than a name you can see.
  *
  * All five share the prototype's hairline bottom border, dropped on the last child.
+ *
+ * Styling is `StyleSheet`, not `className` — see `theme.ts`.
  */
+
+const styles = StyleSheet.create({
+  divider: { borderBottomWidth: 1, borderBottomColor: color.line },
+
+  listRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: sp(2),
+    paddingVertical: sp(2.5),
+  },
+  grow: { flex: 1 },
+  title: { fontFamily: font.bold, ...type.body, color: color.ink },
+  sub: { marginTop: sp(0.5), fontFamily: font.regular, ...type.hint, color: color.muted },
+  rightText: {
+    textAlign: 'right',
+    fontFamily: font.regular,
+    ...type.hint,
+    color: color.muted,
+  },
+  tint: { backgroundColor: color.greenPale },
+
+  menuRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: sp(0.5),
+    paddingVertical: sp(3),
+  },
+  chevron: { fontFamily: font.regular, fontSize: 16, lineHeight: 24, color: color.muted },
+
+  kvRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: sp(1.5),
+  },
+  kvLabel: { fontFamily: font.regular, ...type.meta, color: color.muted },
+  kvValue: { fontFamily: font.bold, ...type.meta, color: color.ink },
+
+  checkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: sp(2),
+    paddingVertical: sp(2),
+  },
+  box: {
+    height: 16,
+    width: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.small,
+    borderWidth: 1.5,
+    borderColor: color.muted,
+  },
+  boxChecked: { borderColor: color.green, backgroundColor: color.green },
+  check: { fontFamily: font.bold, fontSize: 10, lineHeight: 13, color: color.card },
+  checkLabel: { flex: 1, fontFamily: font.regular, ...type.body, color: color.ink },
+  checkLabelLocked: { color: color.muted },
+});
 
 // ---------------------------------------------------------------------------
 
@@ -28,23 +91,12 @@ export function ListItem({
   last?: boolean;
 }) {
   return (
-    <View
-      className={cn(
-        'flex-row items-start justify-between gap-2 py-2.5',
-        !last && 'border-b border-sigla-line',
-      )}
-    >
-      <View className="flex-1">
-        <Text className="font-sigla-bold text-sigla-body text-sigla-ink">{title}</Text>
-        {sub !== undefined && (
-          <Text className="mt-0.5 font-sigla text-sigla-hint text-sigla-muted">{sub}</Text>
-        )}
+    <View style={[styles.listRow, !last && styles.divider]}>
+      <View style={styles.grow}>
+        <Text style={styles.title}>{title}</Text>
+        {sub !== undefined && <Text style={styles.sub}>{sub}</Text>}
       </View>
-      {typeof right === 'string' ? (
-        <Text className="text-right font-sigla text-sigla-hint text-sigla-muted">{right}</Text>
-      ) : (
-        right
-      )}
+      {typeof right === 'string' ? <Text style={styles.rightText}>{right}</Text> : right}
     </View>
   );
 }
@@ -65,26 +117,24 @@ export function ClickRow({
   onPress: () => void;
   last?: boolean;
 }) {
+  const { hovered, hoverProps } = useHover();
+
   return (
     <Pressable
       accessibilityRole="button"
       onPress={onPress}
-      className={cn(
-        'flex-row items-start justify-between gap-2 py-2.5 hover:bg-sigla-green-pale active:bg-sigla-green-pale',
-        !last && 'border-b border-sigla-line',
-      )}
+      {...hoverProps}
+      style={({ pressed }) => [
+        styles.listRow,
+        !last && styles.divider,
+        (pressed || hovered) && styles.tint,
+      ]}
     >
-      <View className="flex-1">
-        <Text className="font-sigla-bold text-sigla-body text-sigla-ink">{title}</Text>
-        {sub !== undefined && (
-          <Text className="mt-0.5 font-sigla text-sigla-hint text-sigla-muted">{sub}</Text>
-        )}
+      <View style={styles.grow}>
+        <Text style={styles.title}>{title}</Text>
+        {sub !== undefined && <Text style={styles.sub}>{sub}</Text>}
       </View>
-      {typeof right === 'string' ? (
-        <Text className="text-right font-sigla text-sigla-hint text-sigla-muted">{right}</Text>
-      ) : (
-        right
-      )}
+      {typeof right === 'string' ? <Text style={styles.rightText}>{right}</Text> : right}
     </Pressable>
   );
 }
@@ -103,22 +153,24 @@ export function MenuRow({
   onPress: () => void;
   last?: boolean;
 }) {
+  const { hovered, hoverProps } = useHover();
+
   return (
     <Pressable
       accessibilityRole="button"
       onPress={onPress}
-      className={cn(
-        'flex-row items-center justify-between px-0.5 py-3 hover:bg-sigla-green-pale active:bg-sigla-green-pale',
-        !last && 'border-b border-sigla-line',
-      )}
+      {...hoverProps}
+      style={({ pressed }) => [
+        styles.menuRow,
+        !last && styles.divider,
+        (pressed || hovered) && styles.tint,
+      ]}
     >
-      <View className="flex-1">
-        <Text className="font-sigla-bold text-sigla-body text-sigla-ink">{title}</Text>
-        {sub !== undefined && (
-          <Text className="mt-0.5 font-sigla text-sigla-hint text-sigla-muted">{sub}</Text>
-        )}
+      <View style={styles.grow}>
+        <Text style={styles.title}>{title}</Text>
+        {sub !== undefined && <Text style={styles.sub}>{sub}</Text>}
       </View>
-      <Text className="font-sigla text-base text-sigla-muted">›</Text>
+      <Text style={styles.chevron}>›</Text>
     </Pressable>
   );
 }
@@ -136,18 +188,9 @@ export function KeyValue({
   last?: boolean;
 }) {
   return (
-    <View
-      className={cn(
-        'flex-row items-center justify-between py-1.5',
-        !last && 'border-b border-sigla-line',
-      )}
-    >
-      <Text className="font-sigla text-sigla-meta text-sigla-muted">{label}</Text>
-      {typeof value === 'string' ? (
-        <Text className="font-sigla-bold text-sigla-meta text-sigla-ink">{value}</Text>
-      ) : (
-        value
-      )}
+    <View style={[styles.kvRow, !last && styles.divider]}>
+      <Text style={styles.kvLabel}>{label}</Text>
+      {typeof value === 'string' ? <Text style={styles.kvValue}>{value}</Text> : value}
     </View>
   );
 }
@@ -181,28 +224,13 @@ export function CheckboxRow({
       accessibilityState={{ checked, disabled: locked }}
       disabled={locked}
       onPress={onToggle}
-      className={cn(
-        'flex-row items-center gap-2 py-2',
-        !last && 'border-b border-sigla-line',
-      )}
+      style={[styles.checkRow, !last && styles.divider]}
     >
-      <View
-        className={cn(
-          'h-4 w-4 items-center justify-center rounded border-[1.5px]',
-          checked ? 'border-sigla-green bg-sigla-green' : 'border-sigla-muted',
-        )}
-      >
-        {checked && <Text className="font-sigla-bold text-[10px] text-sigla-card">✓</Text>}
+      <View style={[styles.box, checked && styles.boxChecked]}>
+        {checked && <Text style={styles.check}>✓</Text>}
       </View>
 
-      <Text
-        className={cn(
-          'flex-1 font-sigla text-sigla-body',
-          locked ? 'text-sigla-muted' : 'text-sigla-ink',
-        )}
-      >
-        {label}
-      </Text>
+      <Text style={[styles.checkLabel, locked && styles.checkLabelLocked]}>{label}</Text>
     </Pressable>
   );
 }
