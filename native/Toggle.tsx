@@ -1,5 +1,5 @@
-import { Pressable, Text, View } from 'react-native';
-import { cn } from './cn';
+import { Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { color, font, radius, sp, type } from './theme';
 
 /**
  * The prototype's `.toggle` — the two-up segmented control on the landing screen.
@@ -8,6 +8,8 @@ import { cn } from './cn';
  * registration has been submitted…`), because that mock forces you through Register first. Here both
  * halves are real navigation: a returning citizen opening the app taps Login, which is what US 1.01
  * step 1 describes — "shown a choice between Login and Register".
+ *
+ * Styling is `StyleSheet`, not `className` — see `theme.ts`.
  */
 
 export interface ToggleOption {
@@ -15,26 +17,35 @@ export interface ToggleOption {
   label: string;
 }
 
+const styles = StyleSheet.create({
+  wrap: {
+    marginBottom: sp(3.5),
+    flexDirection: 'row',
+    /* This is what clips the active half's fill to the rounded outer border. */
+    overflow: 'hidden',
+    borderRadius: radius.control,
+    borderWidth: 1,
+    borderColor: color.ink,
+  },
+  half: { flex: 1, alignItems: 'center', paddingVertical: sp(2.5) },
+  halfActive: { backgroundColor: color.ink },
+  label: { fontFamily: font.bold, ...type.body, color: color.ink },
+  labelActive: { color: color.card },
+});
+
 export function Toggle({
   options,
   activeKey,
   onSelect,
-  className,
+  style,
 }: {
   options: readonly [ToggleOption, ToggleOption];
   activeKey: string;
   onSelect: (key: string) => void;
-  className?: string;
+  style?: StyleProp<ViewStyle>;
 }) {
   return (
-    <View
-      accessibilityRole="tablist"
-      /* `overflow-hidden` is what clips the active half's fill to the rounded outer border. */
-      className={cn(
-        'mb-3.5 flex-row overflow-hidden rounded-sigla border border-sigla-ink',
-        className,
-      )}
-    >
+    <View accessibilityRole="tablist" style={[styles.wrap, style]}>
       {options.map((option) => {
         const active = option.key === activeKey;
 
@@ -44,16 +55,9 @@ export function Toggle({
             accessibilityRole="tab"
             accessibilityState={{ selected: active }}
             onPress={() => onSelect(option.key)}
-            className={cn('flex-1 items-center py-2.5', active && 'bg-sigla-ink')}
+            style={[styles.half, active && styles.halfActive]}
           >
-            <Text
-              className={cn(
-                'font-sigla-bold text-sigla-body',
-                active ? 'text-sigla-card' : 'text-sigla-ink',
-              )}
-            >
-              {option.label}
-            </Text>
+            <Text style={[styles.label, active && styles.labelActive]}>{option.label}</Text>
           </Pressable>
         );
       })}

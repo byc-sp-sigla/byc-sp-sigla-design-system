@@ -1,6 +1,16 @@
 import { useState } from 'react';
-import { Modal, Pressable, ScrollView, Text, View } from 'react-native';
-import { cn } from './cn';
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
+import { color, font, radius, sp, type } from './theme';
+import { useHover } from './useHover';
 
 /**
  * The prototype's `selectField()` — a labelled dropdown over a fixed list.
@@ -15,6 +25,8 @@ import { cn } from './cn';
  * Same border, background, radius, and type as `Field`, because in the prototype `select.input` IS
  * `.input` with `appearance:none`. A dropdown that is visibly a button next to fields that are boxes
  * is the kind of drift that makes a form look assembled rather than designed.
+ *
+ * Styling is `StyleSheet`, not `className` — see `theme.ts`.
  */
 
 export interface SelectOption {
@@ -32,7 +44,97 @@ interface SelectProps {
   hint?: string;
   error?: string;
   disabled?: boolean;
-  className?: string;
+  style?: StyleProp<ViewStyle>;
+}
+
+const styles = StyleSheet.create({
+  wrap: { marginBottom: sp(2.5) },
+  label: {
+    marginBottom: sp(1.5),
+    fontFamily: font.bold,
+    ...type.label,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    color: color.muted,
+  },
+  trigger: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: radius.control,
+    borderWidth: 1,
+    borderColor: color.lineStrong,
+    backgroundColor: color.field,
+    paddingHorizontal: sp(3),
+    paddingVertical: sp(2.5),
+  },
+  triggerInvalid: { borderColor: color.red },
+  triggerDisabled: { opacity: 0.45 },
+  /* Placeholder takes the same muted tone as a Field's placeholder, not the ink colour. */
+  valuePlaceholder: { fontFamily: font.regular, ...type.body, color: color.lineStrong },
+  value: { fontFamily: font.regular, ...type.body, color: color.ink },
+  caret: { fontFamily: font.regular, ...type.body, color: color.muted },
+  message: { marginTop: sp(1), fontFamily: font.regular, ...type.hint, color: color.muted },
+  messageError: { color: color.red },
+
+  scrim: { flex: 1, justifyContent: 'flex-end', backgroundColor: color.scrim },
+  sheet: {
+    maxHeight: '70%',
+    borderTopLeftRadius: radius.card,
+    borderTopRightRadius: radius.card,
+    borderTopWidth: 2,
+    borderTopColor: color.ink,
+    backgroundColor: color.card,
+  },
+  sheetLabel: {
+    paddingHorizontal: sp(4),
+    paddingTop: sp(4),
+    paddingBottom: sp(2),
+    fontFamily: font.bold,
+    ...type.label,
+    textTransform: 'uppercase',
+    letterSpacing: 1.4,
+    color: color.muted,
+  },
+  option: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: color.line,
+    paddingHorizontal: sp(4),
+    paddingVertical: sp(3),
+  },
+  optionTint: { backgroundColor: color.greenPale },
+  optionLabel: { fontFamily: font.regular, ...type.body, color: color.ink },
+  optionLabelActive: { fontFamily: font.bold, color: color.green },
+  optionCheck: { fontFamily: font.bold, ...type.body, color: color.green },
+});
+
+function Option({
+  option,
+  active,
+  onSelect,
+}: {
+  option: SelectOption;
+  active: boolean;
+  onSelect: () => void;
+}) {
+  const { hovered, hoverProps } = useHover();
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ selected: active }}
+      onPress={onSelect}
+      {...hoverProps}
+      style={({ pressed }) => [styles.option, (pressed || hovered) && styles.optionTint]}
+    >
+      <Text style={[styles.optionLabel, active && styles.optionLabelActive]}>{option.label}</Text>
+      {active && <Text style={styles.optionCheck}>✓</Text>}
+    </Pressable>
+  );
 }
 
 export function Select({
@@ -44,17 +146,15 @@ export function Select({
   hint,
   error,
   disabled = false,
-  className,
+  style,
 }: SelectProps) {
   const [open, setOpen] = useState(false);
   const selected = options.find((o) => o.value === value);
   const message = error ?? hint;
 
   return (
-    <View className={cn('mb-2.5', className)}>
-      <Text className="mb-1.5 font-sigla-bold text-sigla-label uppercase tracking-[1px] text-sigla-muted">
-        {label}
-      </Text>
+    <View style={[styles.wrap, style]}>
+      <Text style={styles.label}>{label}</Text>
 
       <Pressable
         accessibilityRole="button"
@@ -63,77 +163,41 @@ export function Select({
         accessibilityState={{ disabled, expanded: open }}
         disabled={disabled}
         onPress={() => setOpen(true)}
-        className={cn(
-          'w-full flex-row items-center justify-between rounded-sigla border bg-sigla-field px-3 py-2.5',
-          error !== undefined ? 'border-sigla-red' : 'border-sigla-line-strong',
-          disabled && 'opacity-45',
-        )}
+        style={[
+          styles.trigger,
+          error !== undefined && styles.triggerInvalid,
+          disabled && styles.triggerDisabled,
+        ]}
       >
-        <Text
-          className={cn(
-            'font-sigla text-sigla-body',
-            /* Placeholder takes the same muted tone as a Field's placeholder, not the ink colour. */
-            selected ? 'text-sigla-ink' : 'text-sigla-line-strong',
-          )}
-        >
+        <Text style={selected ? styles.value : styles.valuePlaceholder}>
           {selected?.label ?? placeholder}
         </Text>
-        <Text className="font-sigla text-sigla-body text-sigla-muted">▾</Text>
+        <Text style={styles.caret}>▾</Text>
       </Pressable>
 
       {message !== undefined && (
-        <Text
-          className={cn(
-            'mt-1 font-sigla text-sigla-hint',
-            error !== undefined ? 'text-sigla-red' : 'text-sigla-muted',
-          )}
-        >
-          {message}
-        </Text>
+        <Text style={[styles.message, error !== undefined && styles.messageError]}>{message}</Text>
       )}
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         {/* Tapping the scrim closes without choosing — the expected escape from any picker. */}
-        <Pressable
-          className="flex-1 justify-end bg-sigla-shell/50"
-          onPress={() => setOpen(false)}
-          accessibilityLabel="Close"
-        >
+        <Pressable style={styles.scrim} onPress={() => setOpen(false)} accessibilityLabel="Close">
           {/* Stops a tap inside the sheet from reaching the scrim behind it. */}
-          <Pressable
-            className="max-h-[70%] rounded-t-sigla-card border-t-2 border-sigla-ink bg-sigla-card"
-            onPress={(e) => e.stopPropagation()}
-          >
-            <Text className="px-4 pb-2 pt-4 font-sigla-bold text-sigla-label uppercase tracking-[1.4px] text-sigla-muted">
-              {label}
-            </Text>
+          <Pressable style={styles.sheet} onPress={(e) => e.stopPropagation()}>
+            <Text style={styles.sheetLabel}>{label}</Text>
 
             <ScrollView>
-              {options.map((option) => {
-                const active = option.value === value;
-                return (
-                  <Pressable
-                    key={option.value}
-                    accessibilityRole="button"
-                    accessibilityState={{ selected: active }}
-                    onPress={() => {
-                      onChange(option.value);
-                      setOpen(false);
-                    }}
-                    className="flex-row items-center justify-between border-b border-sigla-line px-4 py-3 hover:bg-sigla-green-pale active:bg-sigla-green-pale"
-                  >
-                    <Text
-                      className={cn(
-                        'text-sigla-body',
-                        active ? 'font-sigla-bold text-sigla-green' : 'font-sigla text-sigla-ink',
-                      )}
-                    >
-                      {option.label}
-                    </Text>
-                    {active && <Text className="font-sigla-bold text-sigla-green">✓</Text>}
-                  </Pressable>
-                );
-              })}
+              {options.map((option) => (
+                <Option
+                  key={option.value}
+                  option={option}
+                  active={option.value === value}
+                  onSelect={() => {
+                    onChange(option.value);
+                    setOpen(false);
+                  }}
+                />
+              ))}
             </ScrollView>
           </Pressable>
         </Pressable>

@@ -39,7 +39,8 @@ export function PortalShell({
   maxWidth = 'max-w-xl',
 }: PortalShellProps) {
   return (
-    <div className="min-h-screen bg-sigla-canvas">
+    /* `100dvh` where supported — see the note in `TabbedPortalShell`. */
+    <div className="min-h-screen bg-sigla-canvas supports-[min-height:100dvh]:min-h-dvh">
       <header className="bg-sigla-shell">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-5 py-3.5">
           <span className="font-sigla-black text-[18px] tracking-[-0.2px] text-sigla-card">

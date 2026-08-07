@@ -1,5 +1,13 @@
-import { Text, View, type ViewProps } from 'react-native';
-import { cn } from './cn';
+import {
+  StyleSheet,
+  Text,
+  View,
+  type StyleProp,
+  type TextStyle,
+  type ViewProps,
+  type ViewStyle,
+} from 'react-native';
+import { color, font, radius, sp, type } from './theme';
 
 /**
  * The prototype's flat, non-interactive pieces, in one file because each is a handful of lines and
@@ -8,27 +16,94 @@ import { cn } from './cn';
  *
  * Every one of them is presentational and takes no behaviour, which is what keeps them portable
  * between the citizen and merchant apps unchanged.
+ *
+ * Styling is `StyleSheet`, not `className` — see `theme.ts` for why. Callers override with `style`.
  */
+
+const styles = StyleSheet.create({
+  card: {
+    marginBottom: sp(3),
+    borderRadius: radius.card,
+    borderWidth: 1,
+    paddingHorizontal: sp(4),
+    paddingVertical: sp(3.5),
+  },
+  cardLight: { borderColor: color.lineStrong, backgroundColor: color.card },
+  cardDark: { borderColor: color.shell, backgroundColor: color.shell },
+
+  badge: {
+    alignSelf: 'flex-start',
+    borderRadius: radius.small,
+    borderWidth: 1,
+    paddingHorizontal: sp(1.5),
+    paddingVertical: sp(0.5),
+  },
+  badgeLabel: {
+    fontFamily: font.black,
+    ...type.badge,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+
+  banner: {
+    marginBottom: sp(3),
+    borderRadius: radius.control,
+    borderWidth: 1,
+    backgroundColor: color.card,
+    paddingHorizontal: sp(3.5),
+    paddingVertical: sp(3),
+  },
+  bannerText: { fontFamily: font.regular, ...type.meta },
+
+  greeting: {
+    marginBottom: sp(3),
+    fontFamily: font.black,
+    ...type.greet,
+    letterSpacing: -0.6,
+    color: color.ink,
+  },
+
+  sectionTitle: {
+    marginTop: sp(3.5),
+    marginBottom: sp(1.5),
+    fontFamily: font.bold,
+    ...type.label,
+    textTransform: 'uppercase',
+    letterSpacing: 1.4,
+    color: color.muted,
+  },
+
+  hint: { fontFamily: font.regular, ...type.hint, color: color.muted },
+
+  rule: { marginVertical: sp(3), height: 1, width: '100%', backgroundColor: color.line },
+
+  pinRow: { marginVertical: sp(1.5), flexDirection: 'row', gap: sp(2) },
+  pinBox: {
+    height: 42,
+    width: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.control,
+    borderWidth: 1,
+    borderColor: color.lineStrong,
+    backgroundColor: color.field,
+  },
+  pinBoxFocused: { borderWidth: 2, borderColor: color.green },
+  pinDot: { fontFamily: font.bold, ...type.body, color: color.ink },
+});
 
 // ---------------------------------------------------------------------------
 
 interface CardProps extends ViewProps {
   /** `dark` is the prototype's `background:var(--ink)` card — the digital ID and the QR panel. */
   tone?: 'light' | 'dark';
-  className?: string;
 }
 
-export function Card({ tone = 'light', className, children, ...rest }: CardProps) {
+export function Card({ tone = 'light', style, children, ...rest }: CardProps) {
   return (
     <View
-      className={cn(
-        'mb-3 rounded-sigla-card border px-4 py-3.5',
-        tone === 'dark'
-          ? 'border-sigla-shell bg-sigla-shell'
-          : 'border-sigla-line-strong bg-sigla-card',
-        className,
-      )}
       {...rest}
+      style={[styles.card, tone === 'dark' ? styles.cardDark : styles.cardLight, style]}
     >
       {children}
     </View>
@@ -40,24 +115,20 @@ export function Card({ tone = 'light', className, children, ...rest }: CardProps
 type BadgeTone = 'green' | 'amber' | 'red' | 'gray';
 
 const BADGE: Record<BadgeTone, string> = {
-  green: 'text-sigla-green border-sigla-green',
-  amber: 'text-sigla-amber border-sigla-amber',
-  red: 'text-sigla-red border-sigla-red',
-  gray: 'text-sigla-muted border-sigla-line-strong',
+  green: color.green,
+  amber: color.amber,
+  red: color.red,
+  gray: color.muted,
 };
 
 /** `.badge` — a hairline outline in the tone's own colour, never a fill. */
 export function Badge({ label, tone = 'gray' }: { label: string; tone?: BadgeTone }) {
+  /* Gray is the one tone whose border is not its text colour: muted text on a line-strong outline. */
+  const border = tone === 'gray' ? color.lineStrong : BADGE[tone];
+
   return (
-    <View className={cn('self-start rounded border px-1.5 py-0.5', BADGE[tone])}>
-      <Text
-        className={cn(
-          'font-sigla-black text-sigla-badge uppercase tracking-[1px]',
-          BADGE[tone].split(' ')[0],
-        )}
-      >
-        {label}
-      </Text>
+    <View style={[styles.badge, { borderColor: border }]}>
+      <Text style={[styles.badgeLabel, { color: BADGE[tone] }]}>{label}</Text>
     </View>
   );
 }
@@ -74,28 +145,17 @@ export function Badge({ label, tone = 'gray' }: { label: string; tone?: BadgeTon
 export function Banner({
   tone,
   children,
-  className,
+  style,
 }: {
   tone: 'info' | 'warn' | 'error';
   children: React.ReactNode;
-  className?: string;
+  style?: StyleProp<ViewStyle>;
 }) {
-  const style =
-    tone === 'warn'
-      ? 'border-sigla-amber'
-      : tone === 'error'
-        ? 'border-sigla-red'
-        : 'border-sigla-green';
-
-  const text =
-    tone === 'warn' ? 'text-sigla-amber' : tone === 'error' ? 'text-sigla-red' : 'text-sigla-green';
+  const accent = tone === 'warn' ? color.amber : tone === 'error' ? color.red : color.green;
 
   return (
-    <View
-      accessibilityRole="alert"
-      className={cn('mb-3 rounded-sigla border bg-sigla-card px-3.5 py-3', style, className)}
-    >
-      <Text className={cn('font-sigla text-sigla-meta', text)}>{children}</Text>
+    <View accessibilityRole="alert" style={[styles.banner, { borderColor: accent }, style]}>
+      <Text style={[styles.bannerText, { color: accent }]}>{children}</Text>
     </View>
   );
 }
@@ -110,15 +170,15 @@ export function Banner({
  * 800 weight, the `sigla-greet` size, and `-0.03em` tracking. Three screens had already hand-written
  * that trio before this existed, which is exactly how the third one ends up slightly different.
  */
-export function Greeting({ children, className }: { children: string; className?: string }) {
+export function Greeting({
+  children,
+  style,
+}: {
+  children: string;
+  style?: StyleProp<TextStyle>;
+}) {
   return (
-    <Text
-      accessibilityRole="header"
-      className={cn(
-        'mb-3 font-sigla-black text-sigla-greet tracking-[-0.6px] text-sigla-ink',
-        className,
-      )}
-    >
+    <Text accessibilityRole="header" style={[styles.greeting, style]}>
       {children}
     </Text>
   );
@@ -126,21 +186,23 @@ export function Greeting({ children, className }: { children: string; className?
 
 /** `.section-title` — uppercase, wide-tracked, muted. Separates groups within a screen body. */
 export function SectionTitle({ children }: { children: string }) {
-  return (
-    <Text className="mb-1.5 mt-3.5 font-sigla-bold text-sigla-label uppercase tracking-[1.4px] text-sigla-muted">
-      {children}
-    </Text>
-  );
+  return <Text style={styles.sectionTitle}>{children}</Text>;
 }
 
 /** `.hint` — standalone muted helper text, outside a field. */
-export function Hint({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <Text className={cn('font-sigla text-sigla-hint text-sigla-muted', className)}>{children}</Text>;
+export function Hint({
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  style?: StyleProp<TextStyle>;
+}) {
+  return <Text style={[styles.hint, style]}>{children}</Text>;
 }
 
 /** `.hr` — a hairline rule with the prototype's 12px of air either side. */
-export function Rule({ className }: { className?: string }) {
-  return <View className={cn('my-3 h-px w-full bg-sigla-line', className)} />;
+export function Rule({ style }: { style?: StyleProp<ViewStyle> }) {
+  return <View style={[styles.rule, style]} />;
 }
 
 // ---------------------------------------------------------------------------
@@ -163,18 +225,10 @@ export function PinDots({
   focused?: boolean;
 }) {
   return (
-    <View className="my-1.5 flex-row gap-2">
+    <View style={styles.pinRow}>
       {Array.from({ length }, (_, i) => (
-        <View
-          key={i}
-          className={cn(
-            'h-10.5 w-9 items-center justify-center rounded-sigla border bg-sigla-field',
-            focused && i === filled ? 'border-2 border-sigla-green' : 'border-sigla-line-strong',
-          )}
-        >
-          <Text className="font-sigla-bold text-sigla-body text-sigla-ink">
-            {i < filled ? '•' : ''}
-          </Text>
+        <View key={i} style={[styles.pinBox, focused && i === filled && styles.pinBoxFocused]}>
+          <Text style={styles.pinDot}>{i < filled ? '•' : ''}</Text>
         </View>
       ))}
     </View>

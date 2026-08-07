@@ -1,5 +1,6 @@
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CONTENT_MAX_WIDTH, color, font, radius, sp, type } from './theme';
 
 /**
  * The prototype's phone chrome, minus the phone.
@@ -46,44 +47,84 @@ interface AppShellProps {
 }
 
 /**
- * ⚠️ LAYOUT-CRITICAL VALUES ARE PLAIN RN STYLES, NOT CLASSES. Do not "tidy" these back to
- * `className`.
+ * ⚠️ EVERY VALUE HERE IS A LITERAL NUMBER, NOT A CLASS. Do not "tidy" these back to `className`.
  *
  * Tailwind v4 compiles every spacing utility to `calc(var(--spacing) * N)`, and the
  * react-native-css runtime under `nativewind@5.0.0-preview` does not reliably resolve that on
- * Android — the value arrives as `NaN`. For a colour or a font weight that degrades quietly; for
- * `maxWidth` on the content column it collapses the layout and the screen renders BLANK under a
- * correct-looking header. That is exactly what shipped to the first device this was ever opened on.
+ * Android. For a colour that degrades quietly; for `maxWidth` on the content column it collapses the
+ * layout and the screen renders BLANK under a correct-looking header. That is exactly what shipped
+ * to the first device this was ever opened on. See `theme.ts`.
  *
- * So anything that decides whether content is visible — width, maxWidth, flex, padding, gap — is a
- * literal number here. Colour and typography stay as classes, where a miss is cosmetic.
- *
- * `global.css` in both apps also overrides `.max-w-120`, `leading-*` and `text-*` for the same
- * reason. Belt and braces: this file no longer depends on those landing.
- *
- * 120 × 0.25rem = 30rem = 480. 4.5 × 4 = 18.
+ * ⚠️ THE WEB PORTALS' CENTRED PHONE COLUMN IS `column` BELOW. All three of `width`, `maxWidth` and
+ * `alignSelf` are load-bearing: drop `maxWidth` and the merchant/citizen web builds go full-bleed,
+ * drop `alignSelf` and they left-align. `max-w-120` was 120 × 0.25rem = 480px, so this is a literal
+ * translation and not a new choice. Verify at a desktop browser width after touching it.
  */
-const COLUMN = { width: '100%', maxWidth: 480, flex: 1, alignSelf: 'center' } as const;
+const styles = StyleSheet.create({
+  fill: { flex: 1 },
+  screen: { flex: 1, backgroundColor: color.card },
 
-const HEADER_ROW = {
-  width: '100%',
-  maxWidth: 480,
-  marginHorizontal: 'auto',
-  flexDirection: 'row',
-  alignItems: 'center',
-  gap: 8,
-  paddingTop: 12,
-  paddingBottom: 10,
-  paddingLeft: 18,
-  paddingRight: 10,
-} as const;
+  headerBar: {
+    width: '100%',
+    borderBottomWidth: 2,
+    borderBottomColor: color.ink,
+    backgroundColor: color.card,
+  },
+  /**
+   * The RULE is full-bleed, so the header reads as a bar the way it does in the admin/COA portals.
+   * Its CONTENT is capped to the body's width and centred with it — left-aligned instead, the app
+   * label sat at the far left of a wide window while the body sat in the middle, which read as two
+   * unrelated layouts. On a phone the cap exceeds the screen, so this is identical to full width.
+   *
+   * `paddingTop: 12`, not the 2px this had. The safe-area inset stops at the notch — it guarantees
+   * the header is not UNDER the status bar and nothing more. With 2px on top of that, the app label
+   * sat flush against the bottom edge of the status bar on a device, and against the very top of the
+   * viewport on web, where the inset is zero.
+   */
+  headerRow: {
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    marginHorizontal: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: sp(2),
+    paddingTop: 12,
+    paddingBottom: 10,
+    paddingLeft: 18,
+    paddingRight: 10,
+  },
+  iconButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.small,
+    paddingHorizontal: sp(1.5),
+    paddingVertical: sp(1),
+  },
+  /* Pulls the chevron's own padding back so the glyph aligns with the body's 18px gutter. */
+  backButton: { marginLeft: -sp(1.5) },
+  iconPressed: { backgroundColor: color.line },
+  chevron: { fontFamily: font.bold, fontSize: 20, lineHeight: 20, color: color.ink },
+  homeIcon: { fontFamily: font.regular, fontSize: 16, lineHeight: 20, color: color.ink },
 
-const BODY_PAD = { paddingHorizontal: 18, paddingTop: 16, paddingBottom: 24 } as const;
+  titleColumn: { flex: 1, minWidth: 0 },
+  appLabel: {
+    fontFamily: font.bold,
+    ...type.badge,
+    textTransform: 'uppercase',
+    letterSpacing: 1.4,
+    color: color.muted,
+  },
+  title: { fontFamily: font.bold, fontSize: 14.5, lineHeight: 20, color: color.ink },
 
-/** `flex-1` and `w-full` are classes too, and the whole layout chain has to survive without them. */
-const FILL = { flex: 1 } as const;
-const HEADER_BAR = { width: '100%' } as const;
-const TITLE_COL = { flex: 1, minWidth: 0 } as const;
+  column: {
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    flex: 1,
+    alignSelf: 'center',
+    backgroundColor: color.card,
+  },
+  body: { paddingHorizontal: 18, paddingTop: 16, paddingBottom: 24 },
+});
 
 export function AppShell({
   app = 'SIGLA',
@@ -95,83 +136,66 @@ export function AppShell({
   scroll = true,
   footer,
 }: AppShellProps) {
-  const body = <View style={BODY_PAD}>{children}</View>;
+  const body = <View style={styles.body}>{children}</View>;
 
   return (
-    <SafeAreaView className="bg-sigla-card" style={FILL} edges={['top', 'bottom']}>
-      {/*
-        `pt-3`, not the `pt-0.5` this had.
+    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+      <View style={styles.headerBar}>
+        <View style={styles.headerRow}>
+          {/* Rendered only when there is somewhere to go back to. This used to reserve its width
+              unconditionally so the title never shifted between screens, but that indented the title
+              past the body's own padding on every screen without a back button, which read as a stray
+              margin. Aligning with the body wins. */}
+          {onBack !== undefined && (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Go back"
+              onPress={onBack}
+              style={({ pressed }) => [
+                styles.iconButton,
+                styles.backButton,
+                pressed && styles.iconPressed,
+              ]}
+            >
+              <Text style={styles.chevron}>‹</Text>
+            </Pressable>
+          )}
 
-        The safe-area inset stops at the notch — it guarantees the header is not UNDER the status bar
-        and nothing more. With 2px on top of that, the app label sat flush against the bottom edge of
-        the status bar on a device, and against the very top of the viewport on web, where the inset
-        is zero. 12px gives the label room to read as a header rather than as an overflow of the
-        status bar.
+          {onHome !== undefined && (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Go to home"
+              onPress={onHome}
+              style={({ pressed }) => [styles.iconButton, pressed && styles.iconPressed]}
+            >
+              <Text style={styles.homeIcon}>⌂</Text>
+            </Pressable>
+          )}
 
-        Applied here rather than in either app: this is the one header both Expo apps render, so the
-        citizen and merchant chrome cannot drift apart by someone padding only the screen they had
-        open.
+          <View style={styles.titleColumn}>
+            <Text style={styles.appLabel}>{app}</Text>
+            <Text numberOfLines={1} style={styles.title}>
+              {title}
+            </Text>
+          </View>
 
-        The RULE is full-bleed, so the header reads as a bar the way it does in the admin/COA portals.
-        Its CONTENT is capped to the body's width and centred with it — left-aligned instead, the app
-        label sat at the far left of a wide window while the body sat in the middle, which read as two
-        unrelated layouts. On a phone the cap exceeds the screen, so this is identical to full width.
-      */}
-      <View className="border-b-2 border-sigla-ink bg-sigla-card" style={HEADER_BAR}>
-      <View style={HEADER_ROW}>
-        {/* Rendered only when there is somewhere to go back to. This used to reserve its width
-            unconditionally so the title never shifted between screens, but that indented the title
-            past the body's own padding on every screen without a back button, which read as a stray
-            margin. Aligning with the body wins. */}
-        {onBack !== undefined && (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Go back"
-            onPress={onBack}
-            className="-ml-1.5 items-center justify-center rounded px-1.5 py-1 active:bg-sigla-line"
-          >
-            <Text className="font-sigla-bold text-xl leading-5 text-sigla-ink">‹</Text>
-          </Pressable>
-        )}
-
-        {onHome !== undefined && (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Go to home"
-            onPress={onHome}
-            className="items-center justify-center rounded px-1.5 py-1 active:bg-sigla-line"
-          >
-            <Text className="text-base leading-5 text-sigla-ink">⌂</Text>
-          </Pressable>
-        )}
-
-        <View style={TITLE_COL}>
-          <Text className="font-sigla-bold text-sigla-badge uppercase tracking-[1.4px] text-sigla-muted">
-            {app}
-          </Text>
-          <Text numberOfLines={1} className="font-sigla-bold text-[14.5px] leading-5 text-sigla-ink">
-            {title}
-          </Text>
+          {headerRight}
         </View>
-
-        {headerRight}
-      </View>
       </View>
 
       {/* The functional area — scrollable body and footer — stays phone-width and centred, even
           when the header above it spans the full browser window. */}
-      <View className="bg-sigla-card" style={COLUMN}>
+      <View style={styles.column}>
         {scroll ? (
           <ScrollView
-            className="bg-sigla-card"
-            style={FILL}
+            style={styles.fill}
             keyboardShouldPersistTaps="handled"
             contentInsetAdjustmentBehavior="automatic"
           >
             {body}
           </ScrollView>
         ) : (
-          <View className="bg-sigla-card" style={FILL}>{body}</View>
+          <View style={styles.fill}>{body}</View>
         )}
 
         {footer}

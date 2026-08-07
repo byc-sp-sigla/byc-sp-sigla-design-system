@@ -16,6 +16,15 @@
  * docs/adr/0001-tokens-shared-primitives-split.md.
  */
 
+/**
+ * ── STYLING IS StyleSheet, NOT NativeWind ──
+ * The primitives take `style`, not `className`. Tailwind's spacing utilities compile to
+ * `calc(var(--spacing) * N)` and the react-native-css runtime does not reliably resolve that on
+ * Android, which shipped ~650px tall buttons and a blank body under a correct header. Screens
+ * compose these tokens instead — `import { color, font, sp, type } from '…/native'`. See `theme.ts`.
+ */
+export { CONTENT_MAX_WIDTH, color, font, radius, sp, type } from './theme';
+
 export { AppShell } from './AppShell';
 export { Button } from './Button';
 export { Field } from './Field';
