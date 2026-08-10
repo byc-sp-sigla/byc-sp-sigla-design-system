@@ -9,6 +9,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { color, font, radius, sp, type } from './theme';
 import { useHover } from './useHover';
 
@@ -184,21 +185,29 @@ export function Select({
         <Pressable style={styles.scrim} onPress={() => setOpen(false)} accessibilityLabel="Close">
           {/* Stops a tap inside the sheet from reaching the scrim behind it. */}
           <Pressable style={styles.sheet} onPress={(e) => e.stopPropagation()}>
-            <Text style={styles.sheetLabel}>{label}</Text>
+            {/*
+              `edges={['bottom']}` only — the sheet is already clear of the top/status bar, being
+              anchored to the bottom of the screen. Without this, Android's on-screen nav bar (the
+              three-button layout, not gesture nav) sits on top of the last option with no gap,
+              which on a two-option list like Sex made the second option ("Lalaki") unreachable.
+            */}
+            <SafeAreaView edges={['bottom']}>
+              <Text style={styles.sheetLabel}>{label}</Text>
 
-            <ScrollView>
-              {options.map((option) => (
-                <Option
-                  key={option.value}
-                  option={option}
-                  active={option.value === value}
-                  onSelect={() => {
-                    onChange(option.value);
-                    setOpen(false);
-                  }}
-                />
-              ))}
-            </ScrollView>
+              <ScrollView>
+                {options.map((option) => (
+                  <Option
+                    key={option.value}
+                    option={option}
+                    active={option.value === value}
+                    onSelect={() => {
+                      onChange(option.value);
+                      setOpen(false);
+                    }}
+                  />
+                ))}
+              </ScrollView>
+            </SafeAreaView>
           </Pressable>
         </Pressable>
       </Modal>
