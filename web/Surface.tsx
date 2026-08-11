@@ -46,12 +46,12 @@ const BADGE: Record<BadgeTone, string> = {
   gray: 'text-sigla-muted border-sigla-line-strong',
 };
 
-/** `.badge` — a hairline outline in the tone's own colour, never a fill. */
+/** `.badge` — a hairline outline in the tone's own colour, never a fill. `text-center` for labels that wrap. */
 export function Badge({ label, tone = 'gray' }: { label: string; tone?: BadgeTone }) {
   return (
     <span
       className={cn(
-        'inline-block rounded border px-1.5 py-0.5 font-sigla-black text-sigla-badge uppercase tracking-[1px]',
+        'inline-block rounded border px-1.5 py-0.5 text-center font-sigla-black text-sigla-badge uppercase tracking-[1px]',
         BADGE[tone],
       )}
     >
