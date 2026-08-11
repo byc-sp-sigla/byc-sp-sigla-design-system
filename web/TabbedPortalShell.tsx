@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { cn } from './cn';
+import { APP_VERSION } from '../version';
 
 /**
  * The `PortalShell` variant for a portal with per-role tabs — a separate component rather than a
@@ -76,10 +77,10 @@ export function TabbedPortalShell({
         */}
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 pt-0.5 pr-2.5 pb-2.5 pl-[18px]">
           <div className="min-w-0 flex-1">
-            <div className="font-sigla-bold text-[10px] uppercase tracking-[0.14em] text-sigla-muted">
-              {portal}
+            <div className="font-sigla-bold text-[11.5px] uppercase tracking-[0.14em] text-sigla-muted">
+              {portal} {APP_VERSION}
             </div>
-            <h1 className="truncate font-sigla-bold text-[14.5px] tracking-[-0.01em] text-sigla-ink">
+            <h1 className="truncate font-sigla-bold text-[17px] tracking-[-0.01em] text-sigla-ink">
               {title}
             </h1>
           </div>

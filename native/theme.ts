@@ -62,22 +62,30 @@ export const font = {
  * Size and line-height always travel together. React Native reads a unitless `lineHeight` as
  * PIXELS, so a bare ratio collapses text into a thin flat band; pairing them here means the two
  * cannot drift apart.
+ *
+ * ── THE WHOLE SCALE, BUMPED ~17% ──
+ * A system-wide legibility pass: every level scaled by the same factor rather than a flat `+2px`,
+ * so the 7 levels stay as distinguishable from each other as they were — a flat bump compresses
+ * the smallest sizes toward the middle of the scale instead of just making everything bigger.
+ * `tokens.css`'s `@theme` block carries the identical numbers for the web portals — see this
+ * file's own header for why the two are hand-duplicated rather than shared by import. Change one,
+ * change the other.
  */
 export const type = {
   /** badges, tab labels */
-  badge: { fontSize: 9.5, lineHeight: 13 },
+  badge: { fontSize: 11, lineHeight: 15 },
   /** uppercase field labels, section titles */
-  label: { fontSize: 10.5, lineHeight: 14 },
+  label: { fontSize: 12.5, lineHeight: 16.5 },
   /** helper text under a field */
-  hint: { fontSize: 11, lineHeight: 16.5 },
+  hint: { fontSize: 13, lineHeight: 19.5 },
   /** banner copy, secondary rows */
-  meta: { fontSize: 12.5, lineHeight: 18 },
+  meta: { fontSize: 14.5, lineHeight: 21 },
   /** inputs, buttons, list titles */
-  body: { fontSize: 13.5, lineHeight: 20 },
+  body: { fontSize: 16, lineHeight: 23.5 },
   /** screen headings inside the body */
-  title: { fontSize: 15, lineHeight: 20 },
+  title: { fontSize: 17.5, lineHeight: 23.5 },
   /** the "Kumusta!" greeting */
-  greet: { fontSize: 20, lineHeight: 23 },
+  greet: { fontSize: 23.5, lineHeight: 27 },
 } as const;
 
 /** Tailwind's spacing scale at 4px per unit: `sp(3)` is what `p-3` meant. */

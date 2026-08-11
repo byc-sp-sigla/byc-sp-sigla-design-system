@@ -25,4 +25,5 @@ export { Field } from './Field';
 export { Select, type SelectOption } from './Select';
 export { Badge, Banner, Card, Hint, Rule, SectionTitle } from './Surface';
 export { TabStrip, type TabStripItem } from './TabStrip';
+export { QrScanner } from './QrScanner';
 export { cn } from './cn';
