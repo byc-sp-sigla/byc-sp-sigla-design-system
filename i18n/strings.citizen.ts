@@ -30,4 +30,6 @@ export const STRINGS_CITIZEN: Dictionary = {
     en: 'Forgot your password? Visit your barangay office for help.',
     fil: 'Nakalimutan ang password? Bumisita sa inyong barangay office para sa tulong.',
   },
+
+  'unlock.pinLabel': { en: 'Your 4-digit SIGLA PIN', fil: 'Ang iyong 4-digit na SIGLA PIN' },
 };
