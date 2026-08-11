@@ -1,6 +1,8 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CONTENT_MAX_WIDTH, color, font, radius, sp, type } from './theme';
+import { LanguageToggle } from './LanguageToggle';
+import { APP_VERSION } from '../version';
 
 /**
  * The prototype's phone chrome, minus the phone.
@@ -15,6 +17,12 @@ import { CONTENT_MAX_WIDTH, color, font, radius, sp, type } from './theme';
  *   `.phone-head`  the app label + screen title, over a 2px ink rule
  *   `.phone-body`  card-coloured, scrollable, 18px of side padding
  *   the back chevron and the right-hand slot (`Lock` in the prototype)
+ *
+ * ── THE LANGUAGE TOGGLE IS NOT `headerRight` (US 1.11) ──
+ * `headerRight` is per-screen opt-in — `id.tsx` passes `LockButton`, most screens pass nothing. The
+ * language toggle must be reachable in one tap from EVERY screen, so it is rendered here
+ * unconditionally instead, and requires a `<LanguageProvider>` ancestor (each app wraps its root
+ * layout in one) the same way any screen using `useAuth()` requires an `<AuthProvider>` ancestor.
  *
  * ── NO TAB BAR HERE ──
  * The five-tab bar belongs to the signed-in app, not to this component. Every screen in the
@@ -173,12 +181,15 @@ export function AppShell({
           )}
 
           <View style={styles.titleColumn}>
-            <Text style={styles.appLabel}>{app}</Text>
+            <Text style={styles.appLabel}>
+              {app} {APP_VERSION}
+            </Text>
             <Text numberOfLines={1} style={styles.title}>
               {title}
             </Text>
           </View>
 
+          <LanguageToggle />
           {headerRight}
         </View>
       </View>

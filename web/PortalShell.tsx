@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { cn } from './cn';
+import { APP_VERSION } from '../version';
 
 /**
  * The desktop counterpart of `native/AppShell`.
@@ -43,8 +44,11 @@ export function PortalShell({
     <div className="min-h-screen bg-sigla-canvas supports-[min-height:100dvh]:min-h-dvh">
       <header className="bg-sigla-shell">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-5 py-3.5">
-          <span className="font-sigla-black text-[18px] tracking-[-0.2px] text-sigla-card">
-            {portal}
+          <span className="flex items-baseline gap-1.5">
+            <span className="font-sigla-black text-[21px] tracking-[-0.2px] text-sigla-card">
+              {portal}
+            </span>
+            <span className="font-sigla text-[11px] text-sigla-card/60">{APP_VERSION}</span>
           </span>
           <div className="ml-auto flex items-center gap-3">{headerRight}</div>
         </div>

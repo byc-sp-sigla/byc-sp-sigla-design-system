@@ -9,14 +9,21 @@
   "exports": {
     "./tokens.css": "./tokens.css",
     "./native": "./native/index.ts",
-    "./web": "./web/index.ts"
+    "./web": "./web/index.ts",
+    "./i18n": "./i18n/index.ts",
+    "./version": "./version.ts"
   },
   "files": [
     "tokens.css",
     "native",
     "web",
+    "i18n",
+    "version.ts",
     "docs"
   ],
+  "dependencies": {
+    "jsqr": "^1.4.0"
+  },
   "peerDependencies": {
     "react": ">=19",
     "react-native": ">=0.81",

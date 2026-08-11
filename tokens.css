@@ -80,22 +80,28 @@
   --font-sigla-black: HankenGrotesk_800ExtraBold;
 
   /* ── Type: scale ────────────────────────────────────────────────────────────
-     The prototype's own half-pixel sizes. Each carries an explicit `--line-height`
-     because React Native reads a unitless `lineHeight` as PIXELS — a bare ratio
-     collapses text into a thin flat band on Android. Declaring the pair together
-     means the two can never drift apart. */
-  --text-sigla-badge: 9.5px;                 /* badges, tab labels */
-  --text-sigla-badge--line-height: 13px;
-  --text-sigla-label: 10.5px;                /* uppercase field labels, section titles */
-  --text-sigla-label--line-height: 14px;
-  --text-sigla-hint: 11px;                   /* helper text under a field */
-  --text-sigla-hint--line-height: 16.5px;
-  --text-sigla-meta: 12.5px;                 /* banner copy, secondary rows */
-  --text-sigla-meta--line-height: 18px;
-  --text-sigla-body: 13.5px;                 /* inputs, buttons, list titles */
-  --text-sigla-body--line-height: 20px;
-  --text-sigla-title: 15px;                  /* screen headings inside the body */
-  --text-sigla-title--line-height: 20px;
-  --text-sigla-greet: 20px;                  /* the "Kumusta!" greeting */
-  --text-sigla-greet--line-height: 23px;
+     Each carries an explicit `--line-height` because React Native reads a
+     unitless `lineHeight` as PIXELS — a bare ratio collapses text into a thin
+     flat band on Android. Declaring the pair together means the two can never
+     drift apart.
+
+     Bumped ~17% across every level (system-wide legibility pass) — the same
+     factor everywhere rather than a flat +2px, so the 7 levels stay as
+     distinguishable from each other as before. `native/theme.ts`'s `type`
+     export carries the identical numbers for the Expo apps; change one,
+     change the other. */
+  --text-sigla-badge: 11px;                  /* badges, tab labels */
+  --text-sigla-badge--line-height: 15px;
+  --text-sigla-label: 12.5px;                /* uppercase field labels, section titles */
+  --text-sigla-label--line-height: 16.5px;
+  --text-sigla-hint: 13px;                   /* helper text under a field */
+  --text-sigla-hint--line-height: 19.5px;
+  --text-sigla-meta: 14.5px;                 /* banner copy, secondary rows */
+  --text-sigla-meta--line-height: 21px;
+  --text-sigla-body: 16px;                   /* inputs, buttons, list titles */
+  --text-sigla-body--line-height: 23.5px;
+  --text-sigla-title: 17.5px;                /* screen headings inside the body */
+  --text-sigla-title--line-height: 23.5px;
+  --text-sigla-greet: 23.5px;                /* the "Kumusta!" greeting */
+  --text-sigla-greet--line-height: 27px;
 }
