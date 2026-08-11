@@ -27,4 +27,6 @@ export const STRINGS_MERCHANT: Dictionary = {
     en: 'Forgot your password? Contact the LGU settlement office.',
     fil: 'Nakalimutan ang password? Makipag-ugnayan sa LGU settlement office.',
   },
+
+  'unlock.pinLabel': { en: 'Your 4-digit merchant PIN', fil: 'Ang iyong 4-digit na merchant PIN' },
 };
