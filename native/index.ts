@@ -28,6 +28,7 @@ export { CONTENT_MAX_WIDTH, color, font, radius, sp, type } from './theme';
 export { AppShell } from './AppShell';
 export { Button } from './Button';
 export { Field } from './Field';
+export { LanguageToggle } from './LanguageToggle';
 export { Select, type SelectOption } from './Select';
 export { TabBar, type TabItem } from './TabBar';
 export { Toggle, type ToggleOption } from './Toggle';
