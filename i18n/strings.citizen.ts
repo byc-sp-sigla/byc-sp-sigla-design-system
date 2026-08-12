@@ -105,7 +105,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'id.printCard': { en: 'Print Card (CR80 PDF)', fil: 'I-print ang Card (CR80 PDF)' },
   'id.printSoon': {
     en: 'Printable ID export is coming soon. Show your QR code to a merchant or Officer for verification in the meantime.',
-    fil: 'Malapit nang dumating ang printable na ID. Sa ngayon, ipakita ang iyong QR code sa merchant o Officer para sa beripikasyon.',
+    fil: 'Malapit nang maging available ang printable na ID. Sa ngayon, ipakita ang iyong QR code sa merchant o Officer para sa beripikasyon.',
   },
   'id.myDetailsTitle': { en: 'My details', fil: 'Aking impormasyon' },
   'id.myDetailsSub': {
@@ -304,7 +304,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'mp.palengkeTitle': { en: 'Market', fil: 'Palengke' },
   'mp.orderInProgress': {
     en: 'Order in progress — from {seller}.',
-    fil: 'May order kang kasalukuyang isinasagawa — mula kay {seller}.',
+    fil: 'May order kang kasalukuyang isinasagawa — mula sa {seller}.',
   },
   'mp.trackOrder': { en: 'Track your order', fil: 'Subaybayan ang iyong order' },
   'mp.search': { en: 'Search', fil: 'Maghanap' },
@@ -327,7 +327,7 @@ export const STRINGS_CITIZEN: Dictionary = {
 
   'mp.sellerUnavailable': {
     en: 'This seller is no longer available.',
-    fil: 'Wala nang available ang nagtitindang ito.',
+    fil: 'Hindi na available ang nagtitindang ito.',
   },
   'mp.bploVerified': { en: 'BPLO-Verified', fil: 'BPLO-Verified' },
   'mp.sellerHeaderMeta': {
@@ -345,7 +345,7 @@ export const STRINGS_CITIZEN: Dictionary = {
 
   'mp.cartTitle': { en: 'Cart', fil: 'Cart' },
   'mp.cartEmpty': {
-    en: 'Your cart is empty. Add something from Palengke.',
+    en: 'Your cart is empty. Add something from the Market.',
     fil: 'Walang laman ang iyong cart. Magdagdag ng bibilhin mula sa Palengke.',
   },
   'mp.cartSellerLine': { en: '{seller} · Brgy. {barangay}', fil: '{seller} · Brgy. {barangay}' },
@@ -364,7 +364,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'mp.ordersTitle': { en: 'Orders', fil: 'Mga Order' },
   'mp.tapToTrack': { en: 'Tap to track your order', fil: 'Pindutin para subaybayan ang order' },
   'mp.noOrders': {
-    en: 'No orders yet — place your first one from Palengke.',
+    en: 'No orders yet — place your first one from the Market.',
     fil: 'Wala pang order — mag-order ng una mo mula sa Palengke.',
   },
   'mp.orderHistory': { en: 'Order history', fil: 'Kasaysayan ng mga order' },
@@ -379,7 +379,7 @@ export const STRINGS_CITIZEN: Dictionary = {
     en: 'You have no order in progress.',
     fil: 'Wala kang kasalukuyang order.',
   },
-  'mp.backToPalengke': { en: 'Back to Palengke', fil: 'Bumalik sa Palengke' },
+  'mp.backToPalengke': { en: 'Back to the Market', fil: 'Bumalik sa Palengke' },
   'mp.lookingForRider': {
     en: 'Looking for a nearby rider…',
     fil: 'Naghahanap ng rider na malapit…',
@@ -394,7 +394,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'mp.youRated': { en: 'You rated this order {stars}★', fil: 'Binigyan mo ito ng {stars}★' },
 
   'mp.sukiTitle': { en: 'Loyalty', fil: 'Suki' },
-  'mp.sukiCard': { en: 'Suki card this month', fil: 'Suki card ngayong buwan' },
+  'mp.sukiCard': { en: 'Loyalty card this month', fil: 'Suki card ngayong buwan' },
   'mp.sukiOrders': {
     en: 'Orders from BPLO-verified sellers',
     fil: 'Mga order mula sa BPLO-verified na nagtitinda',
@@ -438,7 +438,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'programState.NotEnrolled': { en: 'Not enrolled', fil: 'Hindi kasama' },
 
   // ── Misyon (US 5.02-5.03) ───────────────────────────────────────────────
-  'missions.title': { en: 'Misyon', fil: 'Misyon' },
+  'missions.title': { en: 'Missions', fil: 'Misyon' },
   'missions.credited': { en: '{ec} EC is now in your wallet.', fil: 'Nasa wallet mo na ang {ec} EC.' },
   'missions.recordedNoEc': {
     en: 'Recorded. This one paid no EC — see the mission for why.',
@@ -459,7 +459,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'missions.completed': { en: 'Completed', fil: 'Tapos na' },
 
   // ── Pitaka — wallet and programmes (US 4.04) ────────────────────────────
-  'programs.title': { en: 'Pitaka', fil: 'Pitaka' },
+  'programs.title': { en: 'Wallet', fil: 'Pitaka' },
   'programs.claimed': { en: '{ec} EC is now in your wallet.', fil: 'Nasa wallet mo na ang {ec} EC.' },
   'programs.loadError': {
     en: 'Could not load your programmes.',
@@ -479,7 +479,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'programDetail.title': { en: 'Program', fil: 'Programa' },
   'programDetail.notAvailable': {
     en: 'This program is no longer available.',
-    fil: 'Wala nang available ang programang ito.',
+    fil: 'Hindi na available ang programang ito.',
   },
   'programDetail.loadError': {
     en: 'Could not load this program.',
@@ -506,24 +506,24 @@ export const STRINGS_CITIZEN: Dictionary = {
   },
 
   // ── Abiso (Flow 7) ──────────────────────────────────────────────────────
-  'abiso.title': { en: 'Abiso', fil: 'Abiso' },
-  'abiso.loadError': { en: 'Could not load Abiso.', fil: 'Hindi ma-load ang Abiso.' },
+  'abiso.title': { en: 'Notices', fil: 'Abiso' },
+  'abiso.loadError': { en: 'Could not load notices.', fil: 'Hindi ma-load ang Abiso.' },
   'abiso.empty': { en: 'No notices yet.', fil: 'Wala pang abiso.' },
   'notice.title': { en: 'Notice', fil: 'Abiso' },
   'notice.notAvailable': {
     en: 'This notice is no longer available.',
-    fil: 'Wala nang available ang abisong ito.',
+    fil: 'Hindi na available ang abisong ito.',
   },
   'notice.loadError': {
     en: 'Could not load this notice.',
     fil: 'Hindi ma-load ang abisong ito.',
   },
-  'notice.issuedBy': { en: 'Issued by {issuer}', fil: 'Inilabas ni {issuer}' },
+  'notice.issuedBy': { en: 'Issued by {issuer}', fil: 'Inilabas ng {issuer}' },
 
   // ── Mission detail screens ──────────────────────────────────────────────
   'quest.notAvailable': {
     en: 'This mission is no longer available.',
-    fil: 'Wala nang available ang misyong ito.',
+    fil: 'Hindi na available ang misyong ito.',
   },
   'quest.loadError': {
     en: 'Could not load this mission.',
@@ -590,7 +590,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   },
 
   // ── Palitan — goods catalog and claim tickets (US 6.01-6.02) ────────────
-  'tickets.title': { en: 'Palitan', fil: 'Palitan' },
+  'tickets.title': { en: 'Exchange', fil: 'Palitan' },
   'tickets.catalogError': {
     en: 'Could not load the catalog.',
     fil: 'Hindi ma-load ang katalogo.',
@@ -618,7 +618,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'tickets.line': { en: '{qty} × {good}', fil: '{qty} × {good}' },
   'tickets.meta': {
     en: '{ec} EC · Use before {when}',
-    fil: '{ec} EC · Gamitin bago mag-{when}',
+    fil: '{ec} EC · Gamitin bago ang {when}',
   },
   'tickets.cancel': { en: 'Cancel this ticket', fil: 'Kanselahin ang ticket na ito' },
   'tickets.cancelled': {
@@ -666,7 +666,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'forgotPin.title': { en: 'Forgot PIN', fil: 'Nakalimutang PIN' },
   'forgotPin.notAvailable': {
     en: 'Resetting your PIN in the app is not available yet. Log in with your phone number and password instead — that also clears any PIN lockout.',
-    fil: 'Hindi pa puwedeng i-reset ang PIN sa loob ng app. Mag-login gamit ang iyong numero ng telepono at password — nauubos din nito ang anumang PIN lockout.',
+    fil: 'Hindi pa puwedeng i-reset ang PIN sa loob ng app. Mag-login gamit ang iyong numero ng telepono at password — inaalis din nito ang anumang PIN lockout.',
   },
   'forgotPin.whatHappens': { en: 'What this will do', fil: 'Ano ang mangyayari' },
   'forgotPin.explain': {
