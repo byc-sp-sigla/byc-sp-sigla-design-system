@@ -393,7 +393,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'mp.submitRating': { en: 'Submit rating', fil: 'Isumite ang rating' },
   'mp.youRated': { en: 'You rated this order {stars}★', fil: 'Binigyan mo ito ng {stars}★' },
 
-  'mp.sukiTitle': { en: 'Rewards', fil: 'Suki' },
+  'mp.sukiTitle': { en: 'Loyalty', fil: 'Suki' },
   'mp.sukiCard': { en: 'Suki card this month', fil: 'Suki card ngayong buwan' },
   'mp.sukiOrders': {
     en: 'Orders from BPLO-verified sellers',
