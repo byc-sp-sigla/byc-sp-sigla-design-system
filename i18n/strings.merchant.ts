@@ -608,7 +608,7 @@ export const STRINGS_MERCHANT: Dictionary = {
     en: 'View my Settlement Record',
     fil: 'Tingnan ang aking Settlement Record',
   },
-  'settlement.history': { en: 'Settlement History', fil: 'Kasaysayan ng Settlement' },
+  'settlement.history': { en: 'Past Settlement Records', fil: 'Mga Nakaraang Settlement Record' },
   'settlement.historySub': {
     en: 'Payouts you have already received from the LGU',
     fil: 'Mga bayad na natanggap mo na mula sa LGU',
@@ -644,24 +644,24 @@ export const STRINGS_MERCHANT: Dictionary = {
   'settlementRecord.dateTime': { en: 'Date/Time', fil: 'Petsa/Oras' },
   'settlementRecord.flagReason': { en: 'Flag reason', fil: 'Dahilan ng flag' },
   'settlementRecord.pastRecord': {
-    en: 'A settlement visit you have already completed.',
-    fil: 'Isang settlement na natapos mo na.',
+    en: 'A Settlement Record you have already completed.',
+    fil: 'Isang Settlement Record na natapos mo na.',
   },
   'settlementRecord.voucherNo': { en: 'Voucher no.', fil: 'Voucher no.' },
   'settlementRecord.paidOn': { en: 'Paid on', fil: 'Binayaran noong' },
 
-  'settlementHistory.title': { en: 'Settlement History', fil: 'Kasaysayan ng Settlement' },
+  'settlementHistory.title': { en: 'Past Settlement Records', fil: 'Mga Nakaraang Settlement Record' },
   'settlementHistory.intro': {
-    en: 'Every settlement visit you have made, newest first. Tap one to see the transactions it covered.',
-    fil: 'Lahat ng settlement na ginawa mo, pinakabago muna. Pindutin ang isa para makita ang mga transaksyong sakop nito.',
+    en: 'Every Settlement Record you have completed, newest first. Tap one to see the transactions it covered.',
+    fil: 'Lahat ng Settlement Record na natapos mo, pinakabago muna. Pindutin ang isa para makita ang mga transaksyong sakop nito.',
   },
   'settlementHistory.empty': {
-    en: 'No settlement visits yet. Once a Settlement Supervisor releases your first payout, it appears here.',
-    fil: 'Wala pang settlement. Kapag nailabas na ng Settlement Supervisor ang unang bayad mo, lalabas ito rito.',
+    en: 'No completed Settlement Records yet. Once a Settlement Supervisor releases your first payout, it appears here.',
+    fil: 'Wala pang natapos na Settlement Record. Kapag nailabas na ng Settlement Supervisor ang unang bayad mo, lalabas ito rito.',
   },
   'settlementHistory.loadError': {
-    en: 'Could not load your settlement history.',
-    fil: 'Hindi ma-load ang kasaysayan ng iyong settlement.',
+    en: 'Could not load your past Settlement Records.',
+    fil: 'Hindi ma-load ang iyong mga nakaraang Settlement Record.',
   },
   'settlementHistory.paidOut': { en: 'Paid out', fil: 'Naibayad' },
   'settlementHistory.txCount': { en: '{count} transactions', fil: '{count} na transaksyon' },
