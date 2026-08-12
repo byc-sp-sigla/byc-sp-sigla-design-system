@@ -9,6 +9,7 @@
  */
 
 export { LanguageProvider, useLanguage } from './LanguageContext';
+export { fill } from './format';
 export type { Language, Dictionary } from './types';
 export { STRINGS_SHARED } from './strings.shared';
 export { STRINGS_CITIZEN } from './strings.citizen';
