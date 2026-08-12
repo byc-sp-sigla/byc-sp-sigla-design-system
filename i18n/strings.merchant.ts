@@ -79,7 +79,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'home.tabSettlement': { en: 'Settlement', fil: 'Paniningil' },
   'home.settlementSoon': {
     en: 'Settlement — coming soon',
-    fil: 'Settlement — malapit nang dumating',
+    fil: 'Paniningil — malapit nang maging available',
   },
   'home.sectionTrading': { en: 'Trading', fil: 'Pagtitinda' },
   'home.counter': { en: 'Counter', fil: 'Counter' },
@@ -241,7 +241,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   },
 
   // ── Counter (US 6.02) — the busiest screen in the app ───────────────────
-  'counter.titlePalitan': { en: 'Palitan', fil: 'Palitan' },
+  'counter.titlePalitan': { en: 'Exchange', fil: 'Palitan' },
   'counter.titleScanning': { en: 'Scanning', fil: 'Nag-i-scan' },
   'counter.titleEnterCode': { en: 'Enter code', fil: 'Ilagay ang code' },
   'counter.titleWhatBuying': { en: 'What are they buying?', fil: 'Ano ang binibili nila?' },
@@ -256,7 +256,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'counter.openScanner': { en: 'Open scanner', fil: 'Buksan ang scanner' },
   'counter.idleNote': {
     en: 'Redemptions are billed to the LGU — never the customer.\n72 hours with no heartbeat = automatic lock.',
-    fil: 'Sa LGU siningil ang mga redemption — hindi kailanman sa customer.\n72 oras na walang heartbeat = awtomatikong lock.',
+    fil: 'Sa LGU sinisingil ang mga redemption — hindi kailanman sa customer.\n72 oras na walang heartbeat = awtomatikong lock.',
   },
   'counter.goodsLink': { en: 'Goods I Sell', fil: 'Mga Paninda Ko' },
   'counter.reading': { en: 'Reading…', fil: 'Binabasa…' },
@@ -330,7 +330,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'counter.photoUnavailable': { en: 'Photo unavailable', fil: 'Walang available na larawan' },
   'counter.photoUnavailableBody': {
     en: 'Ask for a physical ID and check the details below against it.',
-    fil: 'Humingi ng pisikal na ID at itapat ang mga detalye sa ibaba dito.',
+    fil: 'Humingi ng pisikal na ID at ihambing dito ang mga detalye sa ibaba.',
   },
   'counter.ticketItem': { en: 'Item', fil: 'Item' },
   'counter.ticketPrice': { en: 'Price', fil: 'Presyo' },
@@ -379,9 +379,9 @@ export const STRINGS_MERCHANT: Dictionary = {
     en: '5-minute void window is open. This EC is recorded as unsettled; you will be paid {payout} at your next settlement visit, at {rate} centavos per EC.',
     fil: 'Bukas ang 5-minutong void window. Naitala ang EC na ito bilang hindi pa nababayaran; babayaran ka ng {payout} sa susunod mong settlement, sa {rate} sentimo bawat EC.',
   },
-  'counter.void': { en: 'Void sale', fil: 'Ibasura ang benta' },
+  'counter.void': { en: 'Void sale', fil: 'Ibalik ang benta' },
   'counter.done': { en: 'Done', fil: 'Tapos na' },
-  'counter.voidTitle': { en: 'Void this sale', fil: 'Ibasura ang bentang ito' },
+  'counter.voidTitle': { en: 'Void this sale', fil: 'Ibalik ang bentang ito' },
   'counter.voidReason': { en: 'Reason', fil: 'Dahilan' },
   'counter.voidReasonPlaceholder': {
     en: 'e.g. wrong quantity keyed in',
@@ -415,7 +415,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'counter.saleLine': { en: '{good} × {qty}', fil: '{good} × {qty}' },
   'counter.saleSub': {
     en: '{time} · {ec} · you are owed {payout}',
-    fil: '{time} · {ec} · may utang sa iyo na {payout}',
+    fil: '{time} · {ec} · babayaran ka ng {payout}',
   },
   'settlementState.unsettled': { en: 'Unpaid', fil: 'Hindi pa bayad' },
   'settlementState.batched': { en: 'In review', fil: 'Sinusuri' },
@@ -500,7 +500,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   },
   'counter.voidWindowExpired': {
     en: 'The reversal window for this sale has closed. Raise it at your next settlement visit — the Settlement Verifier can hold the line item for review.',
-    fil: 'Sarado na ang window para ibalik ang bentang ito. Ibangon ito sa susunod mong settlement — puwedeng i-hold ng Settlement Verifier ang linyang ito para suriin.',
+    fil: 'Sarado na ang window para ibalik ang bentang ito. Ilahad ito sa susunod mong settlement — puwedeng i-hold ng Settlement Verifier ang linyang ito para suriin.',
   },
   'counter.alreadyClosed': {
     en: 'This sale can no longer be reversed — it is already reversed, or already in a settlement batch.',
@@ -692,7 +692,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   },
   'tindahan.applyNote': {
     en: 'You’ll need a business permit or barangay business clearance on file to apply.',
-    fil: 'Kailangan mong may nakasumiteng business permit o barangay business clearance para makapag-apply.',
+    fil: 'Kailangan mong may naisumiteng business permit o barangay business clearance para makapag-apply.',
   },
   'tindahan.applyCta': {
     en: 'Apply to list on the Marketplace',
@@ -741,7 +741,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'mpApply.storefront': { en: 'Storefront details', fil: 'Detalye ng tindahan' },
   'mpApply.displayName': { en: 'Store display name', fil: 'Pangalang ipapakita ng tindahan' },
   'mpApply.displayNamePlaceholder': {
-    en: 'What buyers will see in Palengke',
+    en: 'What buyers will see in the Market',
     fil: 'Ang makikita ng mga bumibili sa Palengke',
   },
   'mpApply.category': { en: 'Category', fil: 'Kategorya' },
@@ -753,7 +753,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'mpApply.gcash': { en: 'GCash number for payouts', fil: 'GCash number para sa bayad' },
   'mpApply.permitReused': {
     en: 'Your business permit is already on file from EC accreditation — no need to upload it again.',
-    fil: 'Nakasumite na ang iyong business permit mula sa akreditasyon sa EC — hindi na kailangang i-upload muli.',
+    fil: 'Naisumite na ang iyong business permit mula sa akreditasyon sa EC — hindi na kailangang i-upload muli.',
   },
   'mpApply.permitRequired': {
     en: 'A business permit or barangay business clearance is required before this can be approved.',
@@ -783,7 +783,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'mpOrder.loading': { en: 'Loading that order…', fil: 'Naglo-load ang order na iyon…' },
   'mpOrder.readyError': {
     en: 'Could not mark that order ready.',
-    fil: 'Hindi mamarkahang handa ang order na iyon.',
+    fil: 'Hindi mamarkahan bilang handa ang order na iyon.',
   },
   'mpOrder.buyer': { en: 'Buyer', fil: 'Bumibili' },
   'mpOrder.items': { en: 'Item(s)', fil: 'Mga item' },
@@ -809,7 +809,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'kita.loading': { en: 'Loading your payouts…', fil: 'Naglo-load ang iyong mga bayad…' },
   'kita.payoutNote': {
     en: 'Payouts settle daily (T+1, ~10 AM), net of a {fee}% platform fee, straight to your linked GCash — and only once a rider has at least picked up the order, so payment follows proof the goods actually changed hands.',
-    fil: 'Araw-araw ang bayad (T+1, mga 10 AM), matapos ibawas ang {fee}% na platform fee, diretso sa naka-link mong GCash — at kapag nakuha na ng rider ang order, para sumunod ang bayad sa patunay na talagang naibigay ang paninda.',
+    fil: 'Araw-araw ang bayad (T+1, mga 10 AM), matapos ibawas ang {fee}% na platform fee, diretso sa naka-link mong GCash — at saka lang kapag nakuha na ng rider ang order, para sumunod ang bayad sa patunay na talagang naibigay ang paninda.',
   },
   'kita.noPayable': {
     en: 'No payable orders yet — nothing has been picked up by a rider.',
@@ -910,7 +910,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'forgotPin.title': { en: 'Forgot PIN', fil: 'Nakalimutang PIN' },
   'forgotPin.notAvailable': {
     en: 'Resetting your PIN in the app is not available yet. Log in with your contact number and password instead — that also clears any PIN lockout.',
-    fil: 'Hindi pa puwedeng i-reset ang PIN sa loob ng app. Mag-login gamit ang iyong numero ng contact at password — nauubos din nito ang anumang PIN lockout.',
+    fil: 'Hindi pa puwedeng i-reset ang PIN sa loob ng app. Mag-login gamit ang iyong numero ng contact at password — inaalis din nito ang anumang PIN lockout.',
   },
   'forgotPin.whatHappens': { en: 'What this will do', fil: 'Ano ang mangyayari' },
   'forgotPin.explain': {
@@ -936,7 +936,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   },
   'permit.devSkip': { en: 'Skip permit capture', fil: 'Laktawan ang pagkuha ng permit' },
   'productPhoto.captured': {
-    en: 'Photo captured — buyers will see this in Palengke.',
+    en: 'Photo captured — buyers will see this in the Market.',
     fil: 'Nakuha ang larawan — ito ang makikita ng mga bumibili sa Palengke.',
   },
   'productPhoto.take': { en: 'Take product photo', fil: 'Kunan ang produkto' },
