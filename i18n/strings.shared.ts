@@ -62,6 +62,8 @@ export const STRINGS_SHARED: Dictionary = {
     en: 'Could not open the camera. Check that no other app is using it, then try again.',
     fil: 'Hindi mabuksan ang camera. Tiyaking walang ibang app na gumagamit nito, tapos subukan muli.',
   },
+  'capture.starting': { en: 'Starting the camera…', fil: 'Binubuksan ang camera…' },
+  'capture.captured': { en: 'Photo captured', fil: 'Nakuha ang larawan' },
   'capture.devOnly': { en: 'Dev only', fil: 'Dev only' },
   'nav.logout': { en: 'Logout', fil: 'Mag-log out' },
   'nav.register': { en: 'Register', fil: 'Magparehistro' },
