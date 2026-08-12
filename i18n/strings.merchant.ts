@@ -13,6 +13,10 @@ export const STRINGS_MERCHANT: Dictionary = {
     fil: 'Gawin muna ang iyong Merchant account. Ang pagtanggap ng Ayuda EC redemptions at ang pagbebenta sa Marketplace ay hiwalay na aplikasyon bawat isa, na maaari mong i-apply mamaya mula sa iyong account.',
   },
   'landing.registerCta': { en: 'Register as a Merchant', fil: 'Magparehistro bilang Merchant' },
+  'landing.setupCta': {
+    en: 'Approved? Set up your login',
+    fil: 'Naaprubahan na? I-set up ang iyong login',
+  },
   'login.subheading': {
     en: 'Log in with your registered contact number.',
     fil: 'Mag-login gamit ang iyong nakarehistrong numero ng contact.',
@@ -25,6 +29,10 @@ export const STRINGS_MERCHANT: Dictionary = {
   'login.switchLink': {
     en: 'New here? Register as a Merchant',
     fil: 'Bago dito? Magparehistro bilang Merchant',
+  },
+  'login.resumeSetupLink': {
+    en: 'Approved? Resume setting up your login',
+    fil: 'Naaprubahan na? Ituloy ang pag-set up ng iyong login',
   },
   'login.forgotFootnote': {
     en: 'Forgot your password? Contact the LGU settlement office.',
@@ -149,9 +157,13 @@ export const STRINGS_MERCHANT: Dictionary = {
     en: 'Contact Number (your username)',
     fil: 'Numero ng Contact (ito ang iyong username)',
   },
-  'credentialSetup.usernameHint': {
-    en: 'Pre-filled from your registration — not editable here.',
-    fil: 'Galing sa iyong rehistrasyon — hindi ito puwedeng baguhin dito.',
+  'credentialSetup.phoneHint': {
+    en: 'The contact number from your merchant registration.',
+    fil: 'Ang numero ng contact mula sa iyong rehistrasyon bilang merchant.',
+  },
+  'credentialSetup.invalidCode': {
+    en: 'That contact number or setup code is not valid.',
+    fil: 'Hindi balido ang numero ng contact o setup code na iyan.',
   },
   'credentialSetup.setupCode': { en: 'Setup Code', fil: 'Setup Code' },
   'credentialSetup.setupCodePlaceholder': { en: '6-digit code', fil: '6-digit na code' },
