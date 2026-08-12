@@ -85,4 +85,12 @@ export const STRINGS_SHARED: Dictionary = {
     fil: 'Nakalimutan ang PIN? Mag-login gamit ang iyong password.',
   },
   'unlock.switchAccount': { en: 'Use a different account', fil: 'Gumamit ng ibang account' },
+
+  /** Tap-to-enlarge QR, shared by every screen that shows one (citizen ID, Claim Ticket, merchant
+   *  Settlement QR) so the affordance and its wording stay identical everywhere it appears. */
+  'qr.expandHint': {
+    en: 'Tap the QR code to view it full-screen',
+    fil: 'I-tap ang QR code para makita ito nang buong-screen',
+  },
+  'qr.collapseHint': { en: 'Tap anywhere to close', fil: 'I-tap kahit saan para isara' },
 };
