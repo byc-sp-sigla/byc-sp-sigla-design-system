@@ -76,7 +76,7 @@ export const STRINGS_MERCHANT: Dictionary = {
     fil: 'Gumagana na ang login, PIN unlock at ang counter. Ang settlement ang susunod.',
   },
   'home.tabPalitan': { en: 'Exchange', fil: 'Palitan' },
-  'home.tabSettlement': { en: 'Settlement', fil: 'Settlement' },
+  'home.tabSettlement': { en: 'Settlement', fil: 'Paniningil' },
   'home.settlementSoon': {
     en: 'Settlement — coming soon',
     fil: 'Settlement — malapit nang dumating',
@@ -249,7 +249,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'counter.titleCustomerPin': { en: 'Customer PIN', fil: 'PIN ng customer' },
   'counter.titleSealed': { en: 'Sale sealed', fil: 'Tapos na ang benta' },
   'counter.tabPalitan': { en: 'Exchange', fil: 'Palitan' },
-  'counter.tabSettlement': { en: 'Settlement', fil: 'Settlement' },
+  'counter.tabSettlement': { en: 'Settlement', fil: 'Paniningil' },
 
   'counter.scanPrompt': { en: 'Scan the customer’s QR', fil: 'I-scan ang QR ng customer' },
   'counter.scanSub': { en: 'ID card or claim ticket', fil: 'ID card o claim ticket' },
@@ -581,7 +581,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'goods.save': { en: 'Save Changes', fil: 'I-save ang mga Pagbabago' },
 
   // ── Settlement (US 6.03-6.04, merchant side) ────────────────────────────
-  'settlement.title': { en: 'Settlement', fil: 'Settlement' },
+  'settlement.title': { en: 'Settlement', fil: 'Paniningil' },
   'settlement.loadError': {
     en: 'Could not load your settlement record.',
     fil: 'Hindi ma-load ang iyong settlement record.',
