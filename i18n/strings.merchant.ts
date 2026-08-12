@@ -75,7 +75,7 @@ export const STRINGS_MERCHANT: Dictionary = {
     en: 'Login, PIN unlock and the counter are working. Settlement is the next slice.',
     fil: 'Gumagana na ang login, PIN unlock at ang counter. Ang settlement ang susunod.',
   },
-  'home.tabPalitan': { en: 'Palitan', fil: 'Palitan' },
+  'home.tabPalitan': { en: 'Exchange', fil: 'Palitan' },
   'home.tabSettlement': { en: 'Settlement', fil: 'Settlement' },
   'home.settlementSoon': {
     en: 'Settlement — coming soon',
@@ -248,7 +248,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'counter.titleTicketFound': { en: 'Ticket found', fil: 'Nahanap ang ticket' },
   'counter.titleCustomerPin': { en: 'Customer PIN', fil: 'PIN ng customer' },
   'counter.titleSealed': { en: 'Sale sealed', fil: 'Tapos na ang benta' },
-  'counter.tabPalitan': { en: 'Palitan', fil: 'Palitan' },
+  'counter.tabPalitan': { en: 'Exchange', fil: 'Palitan' },
   'counter.tabSettlement': { en: 'Settlement', fil: 'Settlement' },
 
   'counter.scanPrompt': { en: 'Scan the customer’s QR', fil: 'I-scan ang QR ng customer' },
@@ -516,7 +516,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   },
 
   // ── Ayuda gate (pre-accreditation) ──────────────────────────────────────
-  'ayuda.title': { en: 'Palitan', fil: 'Palitan' },
+  'ayuda.title': { en: 'Exchange', fil: 'Palitan' },
   'ayuda.headTitle': { en: 'Ayuda', fil: 'Ayuda' },
   'ayuda.settlementLocked': {
     en: 'Settlement locked — accreditation pending',
@@ -672,7 +672,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   'settlementHistory.statusHeld': { en: 'On hold', fil: 'Naka-hold' },
 
   // ── Tindahan — the Marketplace seller side (US 10.01-10.04) ─────────────
-  'tindahan.title': { en: 'Tindahan', fil: 'Tindahan' },
+  'tindahan.title': { en: 'My Store', fil: 'Tindahan' },
   'tindahan.loadError': {
     en: 'Could not load your Marketplace listing.',
     fil: 'Hindi ma-load ang iyong listing sa Marketplace.',
@@ -725,9 +725,9 @@ export const STRINGS_MERCHANT: Dictionary = {
     en: '{stock} of {quota} left today · {prep}',
     fil: '{stock} sa {quota} ang natitira ngayong araw · {prep}',
   },
-  'tindahan.tabTindahan': { en: 'Tindahan', fil: 'Tindahan' },
+  'tindahan.tabTindahan': { en: 'My Store', fil: 'Tindahan' },
   'tindahan.tabOrders': { en: 'Orders', fil: 'Mga Order' },
-  'tindahan.tabKita': { en: 'Kita', fil: 'Kita' },
+  'tindahan.tabKita': { en: 'Earnings', fil: 'Kita' },
   'tindahan.tabsLockedNote': {
     en: 'Orders and Kita open once your listing is approved',
     fil: 'Bubukas ang Mga Order at Kita kapag aprubado na ang iyong listing',
@@ -801,7 +801,7 @@ export const STRINGS_MERCHANT: Dictionary = {
   },
 
   // ── Kita — payouts (US 10.04) ───────────────────────────────────────────
-  'kita.title': { en: 'Kita', fil: 'Kita' },
+  'kita.title': { en: 'Earnings', fil: 'Kita' },
   'kita.loadError': {
     en: 'Could not load your payouts.',
     fil: 'Hindi ma-load ang iyong mga bayad.',
