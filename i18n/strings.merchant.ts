@@ -608,6 +608,11 @@ export const STRINGS_MERCHANT: Dictionary = {
     en: 'View my Settlement Record',
     fil: 'Tingnan ang aking Settlement Record',
   },
+  'settlement.history': { en: 'Settlement History', fil: 'Kasaysayan ng Settlement' },
+  'settlement.historySub': {
+    en: 'Payouts you have already received from the LGU',
+    fil: 'Mga bayad na natanggap mo na mula sa LGU',
+  },
   'settlement.manageGoods': { en: 'Manage Goods I Sell', fil: 'Ayusin ang Mga Paninda Ko' },
   'settlement.manageGoodsSub': {
     en: 'Edit your declared-goods checklist',
@@ -638,6 +643,33 @@ export const STRINGS_MERCHANT: Dictionary = {
   'settlementRecord.ecAmount': { en: 'EC Amount', fil: 'Halaga ng EC' },
   'settlementRecord.dateTime': { en: 'Date/Time', fil: 'Petsa/Oras' },
   'settlementRecord.flagReason': { en: 'Flag reason', fil: 'Dahilan ng flag' },
+  'settlementRecord.pastRecord': {
+    en: 'A settlement visit you have already completed.',
+    fil: 'Isang settlement na natapos mo na.',
+  },
+  'settlementRecord.voucherNo': { en: 'Voucher no.', fil: 'Voucher no.' },
+  'settlementRecord.paidOn': { en: 'Paid on', fil: 'Binayaran noong' },
+
+  'settlementHistory.title': { en: 'Settlement History', fil: 'Kasaysayan ng Settlement' },
+  'settlementHistory.intro': {
+    en: 'Every settlement visit you have made, newest first. Tap one to see the transactions it covered.',
+    fil: 'Lahat ng settlement na ginawa mo, pinakabago muna. Pindutin ang isa para makita ang mga transaksyong sakop nito.',
+  },
+  'settlementHistory.empty': {
+    en: 'No settlement visits yet. Once a Settlement Supervisor releases your first payout, it appears here.',
+    fil: 'Wala pang settlement. Kapag nailabas na ng Settlement Supervisor ang unang bayad mo, lalabas ito rito.',
+  },
+  'settlementHistory.loadError': {
+    en: 'Could not load your settlement history.',
+    fil: 'Hindi ma-load ang kasaysayan ng iyong settlement.',
+  },
+  'settlementHistory.paidOut': { en: 'Paid out', fil: 'Naibayad' },
+  'settlementHistory.txCount': { en: '{count} transactions', fil: '{count} na transaksyon' },
+  'settlementHistory.awaitingPayout': { en: 'Awaiting payout', fil: 'Hinihintay ang bayad' },
+  'settlementHistory.statusOpen': { en: 'Being reviewed', fil: 'Sinusuri' },
+  'settlementHistory.statusVerified': { en: 'Verified', fil: 'Na-verify' },
+  'settlementHistory.statusApproved': { en: 'Paid', fil: 'Bayad na' },
+  'settlementHistory.statusHeld': { en: 'On hold', fil: 'Naka-hold' },
 
   // ── Tindahan — the Marketplace seller side (US 10.01-10.04) ─────────────
   'tindahan.title': { en: 'Tindahan', fil: 'Tindahan' },
