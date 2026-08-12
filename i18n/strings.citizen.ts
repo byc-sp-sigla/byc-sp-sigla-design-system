@@ -301,7 +301,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'quest.kindSocialMedia': { en: 'Social Media quest', fil: 'Misyong social media' },
 
   // ── Marketplace — Palengke, cart, orders, Suki (US 9.01-9.05) ───────────
-  'mp.palengkeTitle': { en: 'Palengke', fil: 'Palengke' },
+  'mp.palengkeTitle': { en: 'Market', fil: 'Palengke' },
   'mp.orderInProgress': {
     en: 'Order in progress — from {seller}.',
     fil: 'May order kang kasalukuyang isinasagawa — mula kay {seller}.',
@@ -393,7 +393,7 @@ export const STRINGS_CITIZEN: Dictionary = {
   'mp.submitRating': { en: 'Submit rating', fil: 'Isumite ang rating' },
   'mp.youRated': { en: 'You rated this order {stars}★', fil: 'Binigyan mo ito ng {stars}★' },
 
-  'mp.sukiTitle': { en: 'Suki', fil: 'Suki' },
+  'mp.sukiTitle': { en: 'Rewards', fil: 'Suki' },
   'mp.sukiCard': { en: 'Suki card this month', fil: 'Suki card ngayong buwan' },
   'mp.sukiOrders': {
     en: 'Orders from BPLO-verified sellers',
