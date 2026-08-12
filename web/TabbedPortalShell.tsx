@@ -76,7 +76,8 @@ export function TabbedPortalShell({
           nothing at any width where they already fit.
         */}
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 pt-0.5 pr-2.5 pb-2.5 pl-[18px]">
-          <div className="min-w-0 flex-1">
+          {/* basis-full below sm so the pills wrap instead of crushing this column. */}
+          <div className="min-w-0 flex-1 basis-full sm:basis-0">
             <div className="font-sigla-bold text-[11.5px] uppercase tracking-[0.14em] text-sigla-muted">
               {portal} {APP_VERSION}
             </div>
