@@ -909,4 +909,17 @@ export const STRINGS_MERCHANT: Dictionary = {
   },
   'productPhoto.take': { en: 'Take product photo', fil: 'Kunan ang produkto' },
   'productPhoto.devSkip': { en: 'Skip product photo', fil: 'Laktawan ang larawan ng produkto' },
+
+  // ── Suspended terminal (US 2.06) ────────────────────────────────────────
+  'suspended.title': { en: 'Account suspended', fil: 'Suspendido ang account' },
+  'suspended.heading': { en: 'Account suspended.', fil: 'Suspendido ang account.' },
+  'suspended.whatItMeans': {
+    en: 'You cannot accept EC redemptions while this stands. Any EC already sealed is still owed to you and is safe — a suspension is not a forfeiture.',
+    fil: 'Hindi ka puwedeng tumanggap ng EC redemptions habang nakabinbin ito. Ligtas pa rin at babayaran sa iyo ang EC na natapos na — ang suspensyon ay hindi pagkumpiska.',
+  },
+  'suspended.contact': {
+    en: 'Reinstatement is decided by a Settlement Verifier and a Settlement Supervisor together. Contact the LGU settlement office to raise it.',
+    fil: 'Ang Settlement Verifier at Settlement Supervisor ang magkasamang magdedesisyon sa pagbabalik. Makipag-ugnayan sa LGU settlement office para maiakyat ito.',
+  },
+  'suspended.backToLogin': { en: 'Back to login', fil: 'Bumalik sa login' },
 };
