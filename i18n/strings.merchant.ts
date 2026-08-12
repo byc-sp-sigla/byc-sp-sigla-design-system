@@ -921,5 +921,7 @@ export const STRINGS_MERCHANT: Dictionary = {
     en: 'Reinstatement is decided by a Settlement Verifier and a Settlement Supervisor together. Contact the LGU settlement office to raise it.',
     fil: 'Ang Settlement Verifier at Settlement Supervisor ang magkasamang magdedesisyon sa pagbabalik. Makipag-ugnayan sa LGU settlement office para maiakyat ito.',
   },
+  'suspended.reason': { en: 'Reason: {reason}', fil: 'Dahilan: {reason}' },
+  'suspended.since': { en: 'Suspended since: {date}', fil: 'Suspendido mula: {date}' },
   'suspended.backToLogin': { en: 'Back to login', fil: 'Bumalik sa login' },
 };

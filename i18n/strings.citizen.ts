@@ -63,7 +63,12 @@ export const STRINGS_CITIZEN: Dictionary = {
 
   // ── My SIGLA ID ──────────────────────────────────────────────────────────
   'id.title': { en: 'My SIGLA ID', fil: 'Ang Aking SIGLA ID' },
-  'id.greeting': { en: 'Magandang {part}, {name}.', fil: 'Magandang {part}, {name}.' },
+  /**
+   * Filipino drops `{part}` on purpose — "Magandang araw" covers the whole day, so a Filipino
+   * reader is never told good afternoon at nine in the morning. `fill` leaves an unused
+   * placeholder alone, so the English template keeps its time-of-day word.
+   */
+  'id.greeting': { en: 'Magandang {part}, {name}.', fil: 'Magandang araw, {name}.' },
   'id.loading': { en: 'Loading your ID…', fil: 'Naglo-load ang iyong ID…' },
   'id.loadError': { en: 'Could not load your ID.', fil: 'Hindi ma-load ang iyong ID.' },
   'id.suspended': {
@@ -714,4 +719,11 @@ export const STRINGS_CITIZEN: Dictionary = {
     fil: 'Piliin ang iyong petsa ng kapanganakan',
   },
   'dateField.done': { en: 'Done', fil: 'Tapos na' },
+
+  // ── The Ayuda tab bar (86d40pqf2) ───────────────────────────────────────
+  'tab.id': { en: 'ID', fil: 'ID' },
+  'tab.pitaka': { en: 'Wallet', fil: 'Pitaka' },
+  'tab.palitan': { en: 'Exchange', fil: 'Palitan' },
+  'tab.misyon': { en: 'Missions', fil: 'Misyon' },
+  'tab.abiso': { en: 'Notices', fil: 'Abiso' },
 };
