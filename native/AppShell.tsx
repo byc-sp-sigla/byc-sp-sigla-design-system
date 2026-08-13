@@ -131,7 +131,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: color.card,
   },
-  body: { paddingHorizontal: 18, paddingTop: 16, paddingBottom: 24 },
+  /**
+   * The bottom padding is deliberately generous. At 24 the last control on a long screen landed
+   * exactly on the fold in a mobile browser — the merchant accreditation form has one more line of
+   * copy than the citizen one, which was enough to cut its Submit button in half.
+   */
+  body: { paddingHorizontal: 18, paddingTop: 16, paddingBottom: sp(14) },
 });
 
 export function AppShell({
